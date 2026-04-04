@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — KarmYog Vatika at RangaMati</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-dark: #2E5339; --gold: #C5A53B; --cream: #FAFAF5;
+    --terracotta: #C5784A; --muted: #666; --deep-forest: #1a2e23;
+    --font-heading: 'Fraunces', Georgia, serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); color: #333;
+    font-family: var(--font-body); font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+  h1,h2,h3 { font-family: var(--font-heading); line-height: 1.15; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { text-decoration: none; }
+
+  /* NAVBAR */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    background: rgba(250,250,245,0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(46,83,57,0.1);
+  }
+  .navbar-inner {
+    max-width: 1280px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .navbar-brand { display: flex; align-items: center; gap: 12px; color: var(--green-dark); }
+  .navbar-brand img { height: 36px; width: auto; border-radius: 4px; }
+  .navbar-brand span { font-family: var(--font-heading); font-size: 20px; font-weight: 600; }
+  .navbar-links { display: flex; gap: 32px; }
+  .navbar-links a { font-size: 14px; font-weight: 500; color: rgba(51,51,51,0.7); transition: color 0.2s; }
+  .navbar-links a:hover { color: var(--green-dark); }
+  .navbar-links a.active { color: var(--green-dark); border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 24px 48px; text-align: center;
+  }
+  .page-header .section-label {
+    font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--terracotta); margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-size: clamp(32px, 5vw, 56px); font-weight: 300; color: var(--green-dark); margin-bottom: 16px;
+  }
+  .page-header p { font-size: 20px; color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+  /* GALLERY GRID */
+  .gallery { padding: 24px 24px 96px; max-width: 1280px; margin: 0 auto; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .gallery-item {
+    position: relative; border-radius: 8px; overflow: hidden;
+    cursor: pointer; aspect-ratio: 4/3;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.04); }
+  .gallery-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 32px 16px 14px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white; font-size: 14px; font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  /* FEATURED: first and last images span 2 columns */
+  .gallery-item.featured { grid-column: span 2; aspect-ratio: 2/1; }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    padding: 40px;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 85vh; border-radius: 4px;
+    object-fit: contain;
+  }
+  .lightbox-close {
+    position: absolute; top: 20px; right: 24px;
+    background: none; border: none; color: white; font-size: 32px;
+    cursor: pointer; opacity: 0.7; transition: opacity 0.2s;
+  }
+  .lightbox-close:hover { opacity: 1; }
+  .lightbox-caption {
+    position: absolute; bottom: 24px; left: 0; right: 0;
+    text-align: center; color: rgba(255,255,255,0.7);
+    font-size: 16px; font-family: var(--font-heading);
+  }
+  .lightbox-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: white; font-size: 40px;
+    cursor: pointer; opacity: 0.6; transition: opacity 0.2s; padding: 16px;
+  }
+  .lightbox-nav:hover { opacity: 1; }
+  .lightbox-prev { left: 12px; }
+  .lightbox-next { right: 12px; }
+
+  /* FOOTER */
+  .footer { background: var(--green-dark); color: rgba(255,255,255,0.8); margin-top: auto; }
+  .footer-inner {
+    max-width: 1280px; margin: 0 auto; padding: 48px 24px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;
+  }
+  .footer p { font-size: 14px; color: rgba(255,255,255,0.4); }
+  .footer a { color: var(--gold); font-size: 14px; }
+  .footer a:hover { color: white; }
+
+  @media (max-width: 768px) {
+    .navbar-links { display: none; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item.featured { grid-column: span 1; aspect-ratio: 4/3; }
+    .gallery-caption { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <img src="brand/KarmYogLogoYellow.png" alt="KarmYog">
+      <span>KarmYog Vatika</span>
+    </a>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="sponsor.html">Sponsor</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="index.html#about">Foundation</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <p class="section-label">The Vision, Rendered</p>
+  <h1>Campus Gallery</h1>
+  <p>Architectural renders of KarmYog Vatika at RangaMati, April 2026. Four Named Ashrams on 97 kathas by the Ganges.</p>
+</div>
+
+<div class="gallery">
+  <div class="gallery-grid" id="galleryGrid">
+
+    <div class="gallery-item featured" onclick="openLightbox(0)">
+      <img src="images/sponsorship/09-campus-grand-aerial-towers.jpeg" alt="Grand campus aerial with towers and temple complex" loading="lazy">
+      <div class="gallery-caption">Grand Campus Aerial with Towers &amp; Temple Complex</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(1)">
+      <img src="images/sponsorship/01-ashram-sant-paleswar-riverside.jpeg" alt="Sant Paleswar Ashram riverside" loading="lazy">
+      <div class="gallery-caption">Sant Paleswar Ashram, Riverside</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(2)">
+      <img src="images/sponsorship/04-ashram-sant-jaleswar-gardens.jpeg" alt="Sant Jaleswar Ashram with gardens" loading="lazy">
+      <div class="gallery-caption">Sant Jaleswar Ashram with Gardens</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(3)">
+      <img src="images/sponsorship/05-campus-aerial-green-roofs.jpeg" alt="Campus aerial with green roof buildings" loading="lazy">
+      <div class="gallery-caption">Campus Aerial, Green Roof Buildings</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(4)">
+      <img src="images/sponsorship/02-commons-deck-riverside-sunset.jpeg" alt="Commons deck at sunset by the river" loading="lazy">
+      <div class="gallery-caption">Commons Deck, Riverside Sunset</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(5)">
+      <img src="images/sponsorship/03-gunakul-dormitory-interior.jpeg" alt="GunaKul dormitory interior" loading="lazy">
+      <div class="gallery-caption">GunaKul Dormitory Interior</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(6)">
+      <img src="images/sponsorship/10-swajan-griha-bedroom-interior.jpeg" alt="Swajan Griha elder bedroom interior" loading="lazy">
+      <div class="gallery-caption">Swajan Griha Elder Residence Interior</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(7)">
+      <img src="images/sponsorship/06-atithi-kutir-named-plaque.jpeg" alt="Atithi Kutir with named plaque" loading="lazy">
+      <div class="gallery-caption">Atithi Kutir with Dedication Plaque</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(8)">
+      <img src="images/sponsorship/08-bhojanalaya-dining-interior.jpeg" alt="Bhojanalaya community dining hall" loading="lazy">
+      <div class="gallery-caption">Bhojanalaya Community Dining Hall</div>
+    </div>
+
+    <div class="gallery-item" onclick="openLightbox(9)">
+      <img src="images/sponsorship/07-vatika-learning-garden-named.jpeg" alt="Biophilic Vatika learning garden" loading="lazy">
+      <div class="gallery-caption">Biophilic Vatika Learning Garden</div>
+    </div>
+
+    <div class="gallery-item featured" onclick="openLightbox(10)">
+      <img src="images/sponsorship/11-campus-panoramic-temple-ashrams.jpeg" alt="Full campus panorama with temple and ashrams" loading="lazy">
+      <div class="gallery-caption">Full Campus Panorama with Temple, Ashrams &amp; River</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8249;</button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p>&copy; 2026 KarmYog for 21st Century Foundation. This is not a real estate project. This is a living ecosystem.</p>
+    <div style="display:flex; gap:24px;">
+      <a href="index.html">Home</a>
+      <a href="sponsor.html">Sponsor</a>
+      <a href="mailto:reachus@ky21c.org">reachus@ky21c.org</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const images = [
+  { src: 'images/sponsorship/09-campus-grand-aerial-towers.jpeg', caption: 'Grand Campus Aerial with Towers & Temple Complex' },
+  { src: 'images/sponsorship/01-ashram-sant-paleswar-riverside.jpeg', caption: 'Sant Paleswar Ashram, Riverside' },
+  { src: 'images/sponsorship/04-ashram-sant-jaleswar-gardens.jpeg', caption: 'Sant Jaleswar Ashram with Gardens' },
+  { src: 'images/sponsorship/05-campus-aerial-green-roofs.jpeg', caption: 'Campus Aerial, Green Roof Buildings' },
+  { src: 'images/sponsorship/02-commons-deck-riverside-sunset.jpeg', caption: 'Commons Deck, Riverside Sunset' },
+  { src: 'images/sponsorship/03-gunakul-dormitory-interior.jpeg', caption: 'GunaKul Dormitory Interior' },
+  { src: 'images/sponsorship/10-swajan-griha-bedroom-interior.jpeg', caption: 'Swajan Griha Elder Residence Interior' },
+  { src: 'images/sponsorship/06-atithi-kutir-named-plaque.jpeg', caption: 'Atithi Kutir with Dedication Plaque' },
+  { src: 'images/sponsorship/08-bhojanalaya-dining-interior.jpeg', caption: 'Bhojanalaya Community Dining Hall' },
+  { src: 'images/sponsorship/07-vatika-learning-garden-named.jpeg', caption: 'Biophilic Vatika Learning Garden' },
+  { src: 'images/sponsorship/11-campus-panoramic-temple-ashrams.jpeg', caption: 'Full Campus Panorama with Temple, Ashrams & River' },
+];
+let currentIdx = 0;
+
+function openLightbox(idx) {
+  currentIdx = idx;
+  document.getElementById('lightboxImg').src = images[idx].src;
+  document.getElementById('lightboxCaption').textContent = images[idx].caption;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function navLightbox(dir) {
+  currentIdx = (currentIdx + dir + images.length) % images.length;
+  document.getElementById('lightboxImg').src = images[currentIdx].src;
+  document.getElementById('lightboxCaption').textContent = images[currentIdx].caption;
+}
+
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2E5339"/>
+      <stop offset="100%" stop-color="#43A06B"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="url(#bg)" stroke="#C5A53B" stroke-width="2"/>
+  <!-- Hair -->
+  <ellipse cx="60" cy="42" rx="28" ry="26" fill="#1a1a2e"/>
+  <ellipse cx="60" cy="56" rx="32" ry="20" fill="#1a1a2e"/>
+  <!-- Face -->
+  <ellipse cx="60" cy="50" rx="22" ry="24" fill="#D4A574"/>
+  <!-- Eyes -->
+  <ellipse cx="52" cy="46" rx="3" ry="2.5" fill="#1a1a2e"/>
+  <ellipse cx="68" cy="46" rx="3" ry="2.5" fill="#1a1a2e"/>
+  <circle cx="53" cy="45.5" r="0.8" fill="white"/>
+  <circle cx="69" cy="45.5" r="0.8" fill="white"/>
+  <!-- Eyebrows -->
+  <path d="M47 42 Q52 39 57 42" stroke="#1a1a2e" stroke-width="1.2" fill="none"/>
+  <path d="M63 42 Q68 39 73 42" stroke="#1a1a2e" stroke-width="1.2" fill="none"/>
+  <!-- Nose -->
+  <path d="M60 48 L58 54 L62 54" stroke="#c4956a" stroke-width="0.8" fill="none"/>
+  <!-- Smile -->
+  <path d="M53 58 Q60 64 67 58" stroke="#a0765a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Bindi -->
+  <circle cx="60" cy="38" r="1.8" fill="#C5784A"/>
+  <!-- Earrings -->
+  <circle cx="37" cy="52" r="2.5" fill="#C5A53B"/>
+  <circle cx="83" cy="52" r="2.5" fill="#C5A53B"/>
+  <!-- Dupatta/clothing hint -->
+  <path d="M32 75 Q60 68 88 75 L95 120 L25 120 Z" fill="#C5784A" opacity="0.9"/>
+  <path d="M35 78 Q60 72 85 78 L90 120 L30 120 Z" fill="#2E5339"/>
+  <!-- Hair strands on sides -->
+  <path d="M38 35 Q32 50 35 65" stroke="#1a1a2e" stroke-width="4" fill="none"/>
+  <path d="M82 35 Q88 50 85 65" stroke="#1a1a2e" stroke-width="4" fill="none"/>
+</svg>
