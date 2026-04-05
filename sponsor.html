@@ -395,8 +395,103 @@
   .pp-lang-pill:hover { border-color: var(--green-dark); color: var(--green-dark); }
   .pp-lang-pill.active { background: var(--green-dark); color: white; border-color: var(--green-dark); }
 
+  /* DETAIL CARDS */
+  .detail-card {
+    border: 1px solid rgba(46,83,57,0.12);
+    border-radius: 8px;
+    padding: 32px;
+    background: white;
+  }
+  .detail-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .detail-card h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+  .detail-subtitle {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--terracotta);
+  }
+  .detail-price {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .detail-desc {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .detail-features {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .detail-features li {
+    font-size: 16px;
+    color: var(--foreground);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .detail-features li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+    top: 3px;
+  }
+  .detail-naming {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--green-dark);
+    padding-top: 16px;
+    border-top: 1px solid rgba(46,83,57,0.1);
+  }
+
+  /* IMPORTANT NOTICE */
+  .important-notice {
+    background: rgba(46,83,57,0.04);
+    border: 1px solid rgba(46,83,57,0.12);
+    border-radius: 8px;
+    padding: 32px;
+  }
+  .important-notice h3 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--green-dark);
+    margin-bottom: 20px;
+  }
+  .important-notice ol {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .important-notice li {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 768px) {
+    .detail-card-header { flex-direction: column; gap: 8px; }
     .navbar-links { display: none; }
     .rights-grid { grid-template-columns: 1fr; }
     .sponsor-table { font-size: 14px; }
@@ -425,6 +520,7 @@
       <a href="index.html">Home</a>
       <a href="sponsor.html" class="active">Sponsor</a>
       <a href="gallery.html">Gallery</a>
+      <a href="foundation.html">Foundation</a>
     </div>
   </div>
 </nav>
@@ -516,6 +612,242 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="section" style="background: white;">
+  <div class="section-inner">
+    <p class="section-label">How It Works</p>
+    <h2>What Sponsorship Means Here</h2>
+    <p style="color:var(--muted); margin-bottom:32px;">Every sponsorship gives you two things: <strong>Naming Rights</strong> and <strong>Nomination Rights</strong>.</p>
+
+    <div class="rights-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="right-card">
+        <div class="right-card-icon">&#9965;</div>
+        <h3>Naming Rights</h3>
+        <p>The unit, bed, or facility is permanently named after whoever you choose — yourself, a parent, a teacher, a departed loved one, a saint. The name appears on a hand-crafted plaque at the entrance, in both English and Bengali.</p>
+        <p style="margin-top:12px; font-style:italic; color:rgba(255,255,255,0.5);">A son honouring his father. A family remembering their mother. A community celebrating a teacher. This is not a transaction — it is an act of devotion or remembrance.</p>
+      </div>
+      <div class="right-card">
+        <div class="right-card-icon">&#9751;</div>
+        <h3>Nomination Rights</h3>
+        <p>For residential units, the sponsor can nominate who the participant will be. A sponsor may or may not be a participant themselves — they can sponsor for someone else entirely.</p>
+        <p style="margin-top:12px; font-size:14px; color:rgba(255,255,255,0.45);"><strong style="color:rgba(255,255,255,0.6);">Critical distinction:</strong> A sponsor contributes money and gets naming rights. A participant is the person who lives at the campus. These may or may not be the same person.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- DETAILED CATEGORY BREAKDOWN -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label">Full Sponsorship Details</p>
+    <h2>Every Category, In Detail</h2>
+    <p style="color:var(--muted); margin-bottom:8px;">From a full residential dormitory to a single bedside plaque — every option carries permanent naming rights.</p>
+
+    <div style="display:flex; flex-direction:column; gap:48px; margin-top:48px;">
+
+      <!-- Gunagrahi Awaas -->
+      <div class="detail-card">
+        <div class="detail-card-header">
+          <div>
+            <h3>Gunagrahi Awaas</h3>
+            <p class="detail-subtitle">Residential Dormitory for GunaKul Learners</p>
+          </div>
+          <div class="detail-price">&#8377;51 Lakhs</div>
+        </div>
+        <p class="detail-desc">Each Gunagrahi Awaas houses 39 young learners in the GunaKul programme — the heart of the intergenerational promise. Children learn alongside elders in a biophilic campus designed for daily practice, study, and growth.</p>
+        <ul class="detail-features">
+          <li>Naming rights on entrance plaque in English and Bengali</li>
+          <li>3 per ashram, <strong>12 available</strong> across campus</li>
+          <li>First right of refusal to sponsor individual beds (13 beds at &#8377;2L each)</li>
+          <li>Full bed sponsorship add-on: &#8377;26 Lakhs additional (all 13 beds)</li>
+          <li><strong>Total for Awaas + all beds: &#8377;77 Lakhs</strong></li>
+        </ul>
+        <p class="detail-naming">&ldquo;Mata Ananya Devi Gunagrahi Awaas&rdquo;</p>
+      </div>
+
+      <!-- Swajan Griha -->
+      <div class="detail-card">
+        <div class="detail-card-header">
+          <div>
+            <h3>Swajan Griha</h3>
+            <p class="detail-subtitle">Private Elder Residence (1,000 sq ft)</p>
+          </div>
+          <div class="detail-price">&#8377;21 Lakhs</div>
+        </div>
+        <p class="detail-desc">A dignified private residence for elders on the banks of the Ganges. Each Swajan Griha is a 1,000 sq ft home designed for lifetime community living — surrounded by purpose, youth, and the sacred river.</p>
+        <ul class="detail-features">
+          <li>Naming rights on entrance plaque, permanent in English and Bengali</li>
+          <li>7 per ashram, <strong>28 available</strong> across campus</li>
+          <li>Mandatory &#8377;4 Lakh payment by participant (Swajan) for living rights</li>
+          <li>If the Swajan chooses not to take back the &#8377;4L, <strong>the bed is permanently named after them</strong> — future participants never pay again</li>
+          <li>2 beds per Griha, each separately sponsorable at &#8377;4 Lakhs</li>
+          <li><strong>Full Swajan package (Griha + both beds): &#8377;29 Lakhs</strong></li>
+        </ul>
+        <p class="detail-naming">&ldquo;Pitrideb Aditya Swajan Griha&rdquo;</p>
+      </div>
+
+      <!-- Atithi Kutir -->
+      <div class="detail-card">
+        <div class="detail-card-header">
+          <div>
+            <h3>Atithi Kutir</h3>
+            <p class="detail-subtitle">Guest Cottage for Visiting Acharyas, Gurus, and Institutional Guests</p>
+          </div>
+          <div class="detail-price">&#8377;21 Lakhs</div>
+        </div>
+        <p class="detail-desc">A riverside retreat for visiting Acharyas, scholars, and spiritual seekers. The Atithi Kutir programme is managed by KYF / RangaMati Vatika Trust — the sponsor does not have personal use rights.</p>
+        <ul class="detail-features">
+          <li>Naming rights on entrance plaque, permanent dedication</li>
+          <li>3 per ashram, <strong>12 available</strong> across campus</li>
+          <li>KYF / RV Trust controls operations, guest selection, scheduling</li>
+          <li>2 beds per Kutir, each separately sponsorable at &#8377;4 Lakhs</li>
+          <li><strong>Full Atithi package (Kutir + both beds): &#8377;29 Lakhs</strong></li>
+        </ul>
+        <p class="detail-naming">&ldquo;Bhrata Aruneshwar Atithi Kutir&rdquo;</p>
+      </div>
+
+      <!-- Bhojanalaya -->
+      <div class="detail-card">
+        <div class="detail-card-header">
+          <div>
+            <h3>Bhojanalaya</h3>
+            <p class="detail-subtitle">Multipurpose Dining Hall &amp; Performing Arts Center</p>
+          </div>
+          <div class="detail-price">&#8377;11 Lakhs</div>
+        </div>
+        <p class="detail-desc">The communal dining hall of each ashram — farm-to-table meals rooted in Ayurvedic wisdom. Where elders and learners break bread together every day, nourished by the campus gardens.</p>
+        <ul class="detail-features">
+          <li>Naming rights on entrance plaque with chosen name and honorific</li>
+          <li>1 per ashram, <strong>4 available</strong> across campus</li>
+          <li>Visible to every resident and visitor dining in the ashram</li>
+        </ul>
+        <p class="detail-naming">&ldquo;Adorini Sukanya Bhojanalaya&rdquo;</p>
+      </div>
+
+      <!-- Biophilic Commons -->
+      <div class="detail-card">
+        <div class="detail-card-header">
+          <div>
+            <h3>Biophilic Commons (Shabhaghar)</h3>
+            <p class="detail-subtitle">Sit-out Deck &amp; Community Event Space</p>
+          </div>
+          <div class="detail-price">&#8377;11 Lakhs</div>
+        </div>
+        <p class="detail-desc">The intellectual heart of each ashram — performing arts centre, science lab, and intergenerational learning space combined. Where generations collide, create, and learn from each other.</p>
+        <ul class="detail-features">
+          <li>Naming rights on entrance plaque, permanent dedication</li>
+          <li>1 per ashram, <strong>4 available</strong> across campus</li>
+          <li>Primary community space for all ashram gatherings</li>
+        </ul>
+        <p class="detail-naming">&ldquo;Mahatma Aryan Dev Shabhaghar&rdquo;</p>
+      </div>
+
+      <!-- Biophilic Vatika -->
+      <div class="detail-card">
+        <div class="detail-card-header">
+          <div>
+            <h3>Biophilic Vatika</h3>
+            <p class="detail-subtitle">Community Learning Garden</p>
+          </div>
+          <div class="detail-price">&#8377;7 Lakhs</div>
+        </div>
+        <p class="detail-desc">A landscaped garden with native flora — a living memorial in the campus grounds. Your name among the trees, visible to every visitor who walks these paths.</p>
+        <ul class="detail-features">
+          <li>Naming rights on garden entrance plaque, permanent dedication</li>
+          <li>1 per ashram, <strong>4 available</strong> across campus</li>
+          <li>Living, growing memorial that evolves with the campus</li>
+        </ul>
+        <p class="detail-naming">&ldquo;Sant Varuneshwar Vatika&rdquo;</p>
+      </div>
+
+      <!-- Bed Dedications -->
+      <div class="detail-card">
+        <div class="detail-card-header">
+          <div>
+            <h3>Bed-Level Dedications</h3>
+            <p class="detail-subtitle">Individual Bed Naming — The Most Intimate Sponsorship</p>
+          </div>
+          <div class="detail-price">&#8377;2–4 Lakhs</div>
+        </div>
+        <p class="detail-desc">Name a single bed — a personal plaque at the bedside, seen by the person who sleeps there. The most intimate form of sponsorship.</p>
+        <ul class="detail-features">
+          <li><strong>GunaKul Beds:</strong> &#8377;2 Lakhs — 39 per ashram, 156 total. Awaas sponsor has first right of refusal.</li>
+          <li><strong>Swajan Beds:</strong> &#8377;4 Lakhs — 14 per ashram, 56 total. Can be sponsored by Griha sponsor or independently.</li>
+          <li><strong>Atithi Beds:</strong> &#8377;4 Lakhs — 6 per ashram, 24 total. Managed by KYF / RV Trust.</li>
+          <li><strong>Total: 236 bed dedications</strong> across 4 ashrams</li>
+        </ul>
+        <p class="detail-naming">&ldquo;In loving memory of: Tejomoy Arnab&rdquo;</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- NAMING CONVENTIONS -->
+<section class="section" style="background: white;">
+  <div class="section-inner">
+    <p class="section-label">The Naming Tradition</p>
+    <h2>How Names Are Written</h2>
+    <p style="color:var(--muted); margin-bottom:32px;">Honour a mother. Remember a father. Celebrate a saint. Every plaque carries an honorific of your choice, the name, and the space — in both English and Bengali.</p>
+
+    <table class="sponsor-table" style="margin-bottom:0;">
+      <thead>
+        <tr>
+          <th>Honorific</th>
+          <th>Meaning</th>
+          <th>Example Plaque</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Mata</strong></td><td>Mother</td><td>Mata Ananya Devi Gunagrahi Awaas</td></tr>
+        <tr><td><strong>Pitrideb</strong></td><td>Revered Father</td><td>Pitrideb Aditya Swajan Griha</td></tr>
+        <tr><td><strong>Bhrata</strong></td><td>Brother</td><td>Bhrata Aruneshwar Atithi Kutir</td></tr>
+        <tr><td><strong>Adorini</strong></td><td>Beloved / Revered Woman</td><td>Adorini Sukanya Bhojanalaya</td></tr>
+        <tr><td><strong>Sant</strong></td><td>Saint</td><td>Sant Varuneshwar Vatika</td></tr>
+        <tr><td><strong>Mahatma</strong></td><td>Great Soul</td><td>Mahatma Aryan Dev Shabhaghar</td></tr>
+        <tr><td><strong>Acharya</strong></td><td>Teacher / Scholar</td><td>Acharya Devprasad Atithi Kutir</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PER-ASHRAM STRUCTURE -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label">Campus Architecture</p>
+    <h2>What's Inside Each Ashram</h2>
+    <p style="color:var(--muted); margin-bottom:32px;">Each of the 4 Named Ashrams contains the same 6 sponsorable components — a total of <strong>300 sponsorable items</strong> across the full campus.</p>
+
+    <table class="sponsor-table" style="margin-bottom:24px;">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Per Ashram</th>
+          <th>Beds</th>
+          <th>Campus Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Gunagrahi Awaas</strong></td><td>3 units</td><td>39 beds</td><td>12 units + 156 beds</td></tr>
+        <tr><td><strong>Swajan Griha</strong></td><td>7 units</td><td>14 beds</td><td>28 units + 56 beds</td></tr>
+        <tr><td><strong>Atithi Kutir</strong></td><td>3 units</td><td>6 beds</td><td>12 units + 24 beds</td></tr>
+        <tr><td><strong>Bhojanalaya</strong></td><td>1 unit</td><td>—</td><td>4 units</td></tr>
+        <tr><td><strong>Biophilic Commons</strong></td><td>1 unit</td><td>—</td><td>4 units</td></tr>
+        <tr><td><strong>Biophilic Vatika</strong></td><td>1 unit</td><td>—</td><td>4 units</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted); font-size:16px; text-align:center;"><strong>16 named units + 59 beds per ashram &times; 4 ashrams = 64 named units + 236 bed dedications = 300 total</strong></p>
   </div>
 </section>
 
@@ -625,6 +957,26 @@
   </div>
 </section>
 
+<!-- IMPORTANT INFORMATION -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label">Please Read Carefully</p>
+    <h2>Important Information</h2>
+    <div class="important-notice">
+      <h3>What This Is &amp; What This Is Not</h3>
+      <ol>
+        <li>This is <strong>not a real estate transaction</strong>. Sponsorship does not confer ownership of land, buildings, or any immovable property.</li>
+        <li><strong>No land ownership</strong> is implied or granted. The campus land is held by the founding family; KYF has development and operating rights for 99 years.</li>
+        <li>There are <strong>no guaranteed financial returns</strong>. This is a sponsorship contribution, not an investment or purchase price.</li>
+        <li>Rights are <strong>contractual and institutional</strong> — governed by the Sponsor Agreement between the sponsor and KYF / RV Trust.</li>
+        <li>Monthly charges for residents are <strong>separate from the sponsorship amount</strong>. Residents (or their sponsors) pay ongoing living costs independently.</li>
+        <li><strong>Exit terms for Swajan Griha:</strong> up to 50% refund of the sponsorship amount on exit or demise of the participant, subject to replacement onboarding by the Trust.</li>
+        <li>KYF and the RangaMati Vatika Trust retain <strong>full operational control</strong> of all campus spaces, programmes, and admissions.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-bar">
   <h2>Have more questions?</h2>
@@ -644,7 +996,8 @@
     <p>&copy; 2026 KarmYog for 21st Century Foundation. This is not a real estate project. This is a living ecosystem.</p>
     <div style="display:flex; gap:24px;">
       <a href="index.html">Home</a>
-      <a href="index.html#gallery">Gallery</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="foundation.html">Foundation</a>
       <a href="mailto:reachus@ky21c.org">reachus@ky21c.org</a>
     </div>
   </div>

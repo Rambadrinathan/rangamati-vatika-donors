@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foundation — KarmYog for 21st Century</title>
+<meta name="description" content="KarmYog for 21st Century Foundation — 30+ years of mission-driven work in education, sustainability, and biophilic design. Headquartered at IIT Kharagpur Research Park.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --background: #FAFAF5;
+    --foreground: #333333;
+    --green-dark: #2E5339;
+    --terracotta: #C5784A;
+    --river-blue: #4A7C9B;
+    --gold: #C5A53B;
+    --cream: #FAFAF5;
+    --muted: #666666;
+    --deep-forest: #1a2e23;
+    --font-heading: 'Fraunces', Georgia, serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); line-height: 1.15; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { text-decoration: none; }
+
+  /* NAVBAR */
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(250,250,245,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(46,83,57,0.1); }
+  .navbar-inner { max-width: 1280px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+  .navbar-brand { display: flex; align-items: center; gap: 12px; color: var(--green-dark); }
+  .navbar-brand img { height: 36px; width: auto; border-radius: 4px; }
+  .navbar-brand span { font-family: var(--font-heading); font-size: 20px; font-weight: 600; }
+  .navbar-links { display: flex; gap: 32px; }
+  .navbar-links a { font-size: 14px; font-weight: 500; color: rgba(51,51,51,0.7); transition: color 0.2s; }
+  .navbar-links a:hover { color: var(--green-dark); }
+  .navbar-links a.active { color: var(--green-dark); border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+
+  .section-label { font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; }
+
+  /* HERO */
+  .page-hero { position: relative; padding: 140px 24px 80px; overflow: hidden; }
+  .page-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .page-hero-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%); }
+  .page-hero-content { position: relative; z-index: 10; max-width: 720px; margin: 0 auto; text-align: center; color: white; }
+  .page-hero-content .section-label { color: rgba(255,255,255,0.6); }
+  .page-hero-content h1 { font-weight: 300; font-size: clamp(32px, 5vw, 64px); margin-bottom: 16px; }
+  .page-hero-content p { font-size: 20px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+  /* ABOUT */
+  .about { padding: 96px 24px; }
+  .about-inner { max-width: 760px; margin: 0 auto; }
+  .about h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 400; color: var(--green-dark); margin-bottom: 24px; }
+  .about p { font-size: 18px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+
+  /* TWO-COL */
+  .two-col { padding: 96px 24px; }
+  .two-col-inner { max-width: 1152px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  .two-col h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; color: var(--green-dark); margin-bottom: 24px; }
+  .two-col p { font-size: 18px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .two-col-image { position: relative; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; }
+  .two-col-image img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* TRACK RECORD */
+  .track-record { padding: 96px 24px; background: white; }
+  .track-record-inner { max-width: 1000px; margin: 0 auto; }
+  .track-record h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; color: var(--green-dark); text-align: center; margin-bottom: 48px; }
+  .track-record-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .track-record-card { padding: 32px; border: 1px solid rgba(46,83,57,0.1); border-radius: 8px; }
+  .track-record-card h3 { font-size: 20px; font-weight: 500; color: var(--green-dark); margin-bottom: 4px; }
+  .track-record-card .where { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--terracotta); margin-bottom: 12px; }
+  .track-record-card p { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+  /* TEAM */
+  .team { padding: 96px 24px; }
+  .team-inner { max-width: 1000px; margin: 0 auto; }
+  .team h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; color: var(--green-dark); text-align: center; margin-bottom: 56px; }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; text-align: center; }
+  .team-member-name { font-family: var(--font-heading); font-size: 20px; color: var(--green-dark); margin-bottom: 4px; }
+  .team-member-role { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--terracotta); margin-bottom: 16px; }
+  .team-member-bio { font-size: 15px; color: var(--muted); line-height: 1.6; }
+  .experience-bar { margin-top: 48px; background: var(--cream); border-radius: 8px; padding: 32px; }
+  .experience-bar h3 { font-size: 22px; font-weight: 400; color: var(--green-dark); text-align: center; margin-bottom: 24px; }
+  .experience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+  .experience-grid .value { font-family: var(--font-heading); font-size: 32px; color: var(--gold); }
+  .experience-grid .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* INSTITUTIONAL */
+  .institutional { padding: 64px 24px 96px; }
+  .institutional-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+  .institutional h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 400; color: var(--green-dark); margin-bottom: 32px; }
+  .institutional-card { background: white; border-radius: 8px; padding: 32px; text-align: left; }
+  .institutional-card p { font-size: 16px; color: var(--muted); line-height: 1.8; }
+  .institutional-card strong { color: var(--foreground); font-weight: 600; }
+  .institutional-card a { color: var(--river-blue); transition: color 0.2s; }
+  .institutional-card a:hover { color: var(--green-dark); }
+
+  /* CTA */
+  .cta { position: relative; padding: 112px 24px; overflow: hidden; }
+  .cta-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cta-gradient { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%); }
+  .cta-content { position: relative; z-index: 10; max-width: 640px; margin: 0 auto; text-align: center; color: white; }
+  .cta h2 { font-size: clamp(32px, 4.5vw, 56px); font-weight: 300; line-height: 1.15; margin-bottom: 24px; }
+  .cta-text { font-size: 20px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 40px; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-gold { display: inline-block; background: var(--gold); color: white; padding: 16px 40px; border-radius: 4px; font-size: 15px; font-weight: 600; transition: opacity 0.2s; }
+  .btn-gold:hover { opacity: 0.9; }
+  .btn-outline { display: inline-block; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 16px 40px; border-radius: 4px; font-size: 16px; font-weight: 600; transition: background 0.2s; }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+  .cta-footer { margin-top: 32px; font-size: 14px; color: rgba(255,255,255,0.4); }
+
+  /* FOOTER */
+  .footer { background: var(--green-dark); color: rgba(255,255,255,0.8); margin-top: auto; }
+  .footer-inner { max-width: 1280px; margin: 0 auto; padding: 64px 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .footer h3 { font-size: 24px; font-weight: 400; color: white; margin-bottom: 16px; }
+  .footer h4 { font-family: var(--font-body); font-size: 16px; font-weight: 600; color: white; margin-bottom: 16px; }
+  .footer p, .footer a { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+  .footer a { transition: color 0.2s; }
+  .footer a:hover { color: white; }
+  .footer-links { display: flex; flex-direction: column; gap: 8px; }
+  .footer-contact { display: flex; flex-direction: column; gap: 8px; }
+  .footer-contact .gold { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 24px 0; text-align: center; font-size: 12px; color: rgba(255,255,255,0.4); max-width: 1280px; margin: 0 auto; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .navbar-links { display: none; }
+    .two-col-inner { grid-template-columns: 1fr; }
+    .track-record-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    .experience-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+
+  *:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <img src="brand/KarmYogLogoYellow.png" alt="KarmYog">
+      <span>KarmYog Vatika</span>
+    </a>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="sponsor.html">Sponsor</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="foundation.html" class="active">Foundation</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" aria-label="Hero">
+  <img class="page-hero-bg" src="images/sponsorship/09-campus-grand-aerial-towers.jpeg"
+       alt="KarmYog Vatika campus" loading="eager">
+  <div class="page-hero-gradient" aria-hidden="true"></div>
+  <div class="page-hero-content">
+    <p class="section-label">Est. 30+ Years Ago</p>
+    <h1>KarmYog for 21st Century Foundation</h1>
+    <p>A purpose-driven institution at the intersection of education, sustainability, technology, and art.</p>
+  </div>
+</section>
+
+<!-- ABOUT THE FOUNDATION -->
+<section class="about" aria-label="About the Foundation">
+  <div class="about-inner">
+    <p class="section-label">About the Foundation</p>
+    <h2>A Purpose-Driven Institution</h2>
+    <p>KarmYog for 21st Century Foundation (KY21C) is dedicated to transforming the way communities live, learn, and sustain themselves by integrating biophilic design, behavioral science, and digital engagement.</p>
+    <p>The Foundation represents a culmination of over three decades of pioneering work. It has evolved into a powerful, multidisciplinary ecosystem that converts ideas and philosophy into living, scalable models of transformation.</p>
+    <p>Headquartered at IIT Kharagpur Research Park, Newtown Kolkata, KY21C operates through a constellation of institutions including the Biophilic Studio, the KarmYog Vatika Network, and the OmniDEL Tabmaster Platform.</p>
+  </div>
+</section>
+
+<!-- MISSION BIOPHILIA -->
+<section class="two-col" style="background: white;" aria-label="Mission Biophilia">
+  <div class="two-col-inner">
+    <div>
+      <p class="section-label">The Movement</p>
+      <h2>Mission Biophilia</h2>
+      <p>At the heart of KY21C lies Mission Biophilia — a national initiative that aims to reorient human habitats toward harmony with nature through biophilic design, ecological stewardship, and intergenerational learning.</p>
+      <p>KarmYog Vatika at RangaMati is an independent, mission-led campus on the banks of the Ganges — a living ecosystem where 150 learners and 60 elders share a biophilic campus of 4 Named Ashrams across 97 kathas.</p>
+    </div>
+    <div class="two-col-image">
+      <img src="images/sponsorship/05-campus-aerial-green-roofs.jpeg" alt="Campus aerial with green roofs" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="track-record" aria-label="Track Record">
+  <div class="track-record-inner">
+    <p class="section-label" style="text-align:center">Proven Track Record</p>
+    <h2>What We Have Built</h2>
+    <div class="track-record-grid">
+      <div class="track-record-card">
+        <h3>Biophilic Durga Puja 2025</h3>
+        <p class="where">IIT Kharagpur Research Park</p>
+        <p>15,000 sq ft biophilic pavilion — "Museum of the Future". 1 lakh visitors, 3 million digital views.</p>
+      </div>
+      <div class="track-record-card">
+        <h3>Biophilic Studio</h3>
+        <p class="where">IIT Kharagpur Research Park</p>
+        <p>Live lab for design, content creation, and ecological research. Operational hub for all KY21C programs.</p>
+      </div>
+      <div class="track-record-card">
+        <h3>KarmYog Green Village</h3>
+        <p class="where">Partnership with HIDCO</p>
+        <p>Demonstrated the Vatika model in practice — transforming idle spaces into thriving learning ecosystems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" aria-label="Leadership">
+  <div class="team-inner">
+    <p class="section-label" style="text-align:center">Leadership</p>
+    <h2>The Team Behind the Vision</h2>
+    <div class="team-grid">
+      <div>
+        <p class="team-member-name">MahAcharya Sourabh J. Sarkar</p>
+        <p class="team-member-role">Founder, KarmYog for 21st Century</p>
+        <p class="team-member-bio">A systems thinker, educator, and designer with over three decades of multidisciplinary experience. Graduate of IIT Kharagpur and Syracuse University. Conceptual architect of Mission Biophilia and founder of the KarmYog Vatika Network.</p>
+      </div>
+      <div>
+        <p class="team-member-name">GunaMata Reena J. Sarkar</p>
+        <p class="team-member-role">Director, Systems &amp; Governance</p>
+        <p class="team-member-bio">Co-founder and guiding force behind the Foundation's institutional structure. Over two decades of experience in organizational systems, team culture development, and governance frameworks.</p>
+      </div>
+      <div>
+        <p class="team-member-name">GuruDasa Ram Badrinathan</p>
+        <p class="team-member-role">Co-Founder, AI &amp; Strategy</p>
+        <p class="team-member-bio">Heads KY21C's AI for Bharat initiative, bridging artificial intelligence, business transformation, and social impact. Deep domain expertise in digital strategy, analytics, and enterprise transformation.</p>
+      </div>
+    </div>
+    <div class="experience-bar">
+      <h3>Collective Experience</h3>
+      <div class="experience-grid">
+        <div><p class="value">30+</p><p class="label">Years in learning &amp; media</p></div>
+        <div><p class="value">20+</p><p class="label">Years in governance &amp; systems</p></div>
+        <div><p class="value">15+</p><p class="label">Years in strategy &amp; AI</p></div>
+        <div><p class="value">10+</p><p class="label">Years in biophilic infrastructure</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONAL DETAILS -->
+<section class="institutional" aria-label="Institutional Details">
+  <div class="institutional-inner">
+    <h2>Institutional Details</h2>
+    <div class="institutional-card">
+      <p><strong>Name:</strong> KarmYog for 21st Century Foundation</p>
+      <p><strong>Registration:</strong> AOP registered in 2008 under the West Bengal Society Registration Act (XXVI), 1961</p>
+      <p><strong>Address:</strong> 401, IIT Kharagpur Research Park, Newtown, Kolkata 700135</p>
+      <p><strong>Email:</strong> <a href="mailto:reachus@ky21c.org">reachus@ky21c.org</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+919167719898">+91 9167719898</a></p>
+      <p><strong>Agreement Duration:</strong> 99 years from Effective Date</p>
+      <p><strong>Land Title:</strong> Remains with the founding family — KYF holds development and operating rights</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" aria-label="Call to Action">
+  <img class="cta-bg" src="images/sponsorship/11-campus-panoramic-temple-ashrams.jpeg"
+       alt="Full panorama of campus" loading="lazy">
+  <div class="cta-gradient" aria-hidden="true"></div>
+  <div class="cta-content">
+    <h2>Be Part of Something That Endures</h2>
+    <p class="cta-text">Sponsor a living space on this campus. Your name, etched in stone, becomes part of an intergenerational community on the banks of the Ganges.</p>
+    <div class="cta-buttons">
+      <a href="sponsor.html" class="btn-gold" style="margin-top:0">Explore Sponsorships</a>
+      <a href="https://wa.me/919167719898?text=I%20would%20like%20to%20know%20more%20about%20KarmYog%20Vatika%20at%20RangaMati"
+         target="_blank" rel="noopener noreferrer" class="btn-outline">WhatsApp Us</a>
+    </div>
+    <p class="cta-footer">KarmYog for 21st Century Foundation &middot; IIT Kharagpur Research Park, Kolkata</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <h3>KarmYog Vatika</h3>
+      <p>at RangaMati by the Ganges — কর্মযোগ বাটিকা. An intergenerational campus manifesting the principles of KarmYog for the 21st Century.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="sponsor.html">Sponsor a Space</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="foundation.html">Foundation</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="footer-contact">
+        <p>KarmYog for 21st Century Foundation</p>
+        <p>401, IIT Kharagpur Research Park</p>
+        <p>Newtown, Kolkata 700135</p>
+        <p style="margin-top:12px"><a href="mailto:reachus@ky21c.org" class="gold">reachus@ky21c.org</a></p>
+        <p><a href="tel:+919167719898">+91 9167719898</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>This is not a real estate project. This is a living ecosystem.</p>
+    <p style="margin-top:4px">&copy; 2026 KarmYog for 21st Century Foundation. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
