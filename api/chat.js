@@ -44,12 +44,12 @@ TIER 1: GUNAGRAHI AWAAS (Residential Learning Buildings)
 - 12 total across campus (3 per ashram)
 - Sponsorship: 51 Lakhs per Awaas
 - Sponsor gets: Naming rights for the entire Gunagrahi Awaas
-- Each Awaas has 13 beds inside
+- Each Awaas has 12 beds inside
 - Each bed can be separately sponsored at 2 Lakhs per bed
 - First right of refusal on beds goes to the Awaas sponsor
-- Awaas sponsor can pay additional 26 Lakhs (13 x 2 Lakhs) to name all beds inside
+- Awaas sponsor can pay additional 24 Lakhs (12 x 2 Lakhs) to name all beds inside
 - Or they can nominate people to find sponsors for individual beds
-- 156 Gunagrahi beds total (39 per ashram)
+- 144 Gunagrahi beds total (36 per ashram)
 
 TIER 2: SWAJAN GRIHA (Elder Living Units)
 - 28 total across campus (7 per ashram)
@@ -76,12 +76,12 @@ TIER 4: COMMON FACILITIES
 - Biophilic Vatika: Community Learning Garden. 4 total (1 per ashram). 7 Lakhs each.
 
 === COMPLETE INVENTORY ===
-300 sponsorable items across the campus. Total mobilizable: 22 Crore (2,200 Lakhs).
+288 sponsorable items across the campus. Total mobilizable: 22 Crore (2,200 Lakhs).
 Development cost per ashram: 4.41 Crore. Total dev cost: 20.58 Crore (including temple).
 
 === PER-ASHRAM BREAKDOWN ===
 Each of the 4 Named Ashrams contains:
-- 3 Gunagrahi Awaas (13 beds each = 39 learner beds)
+- 3 Gunagrahi Awaas (12 beds each = 36 learner beds)
 - 7 Swajan Griha (2 beds each = 14 elder beds)
 - 3 Atithi Kutir (2 beds each = 6 guest beds)
 - 1 Bhojanalaya
@@ -161,7 +161,7 @@ THE LOCATION:
 - For operational details (payments, logistics, paperwork): Ram ji, WhatsApp +91 9167719898 or email reachus@ky21c.org
 - For vision, philosophy, deeper understanding: offer to schedule a meeting with MahAcharyaJi and GunaMata
 - Foundation: KarmYog for 21st Century Foundation
-- VOICE AGENT: If someone says they would prefer to talk instead of type, or if a voice conversation would be more natural for them, let them know there is a voice agent available — they can click the microphone button on the website to talk to Priya by voice in both English and Bengali.
+- VOICE AGENT: If someone says they would prefer to talk instead of type, or if a voice conversation would be more natural for them, let them know there is a voice agent available — they can click the microphone button on the website to talk to Priya by voice in English, Hindi and Bengali.
 
 === RESPONSE RULES ===
 - NEVER invent benefits, rights, or terms not listed above
