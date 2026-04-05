@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KarmYog Vatika at RangaMati by the Ganges</title>
-<meta name="description" content="Sponsor a living space on the banks of the sacred Ganges. Named Ashrams, biophilic residential units, a Dharma Temple Complex, Community Spaces — naming rights from Rs 2 Lakhs.">
+<title>KarmYog Vatika at RangaMati — A Living Campus on the Ganges</title>
+<meta name="description" content="KarmYog Vatika at RangaMati — a mission-led intergenerational campus on 97 kathas by the Ganges. 4 Named Ashrams, biophilic design, 150 learners, 60 elders, living together.">
 
-<!-- Google Fonts: Fraunces (headings) + Source Sans 3 (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -49,12 +48,7 @@
     line-height: 1.15;
   }
 
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
+  img { display: block; max-width: 100%; height: auto; }
   a { text-decoration: none; }
 
   /* === NAVBAR === */
@@ -94,88 +88,12 @@
     transition: color 0.2s;
   }
   .navbar-links a:hover { color: var(--green-dark); }
+  .navbar-links a.active {
+    color: var(--green-dark);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+  }
 
-  /* === HERO === */
-  .hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-  }
-  .hero-gradient {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
-  }
-  .hero-content {
-    position: relative; z-index: 10;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 0 24px;
-  }
-  .hero-label {
-    font-size: 14px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 24px;
-  }
-  .hero h1 {
-    font-weight: 300;
-    font-size: clamp(40px, 7vw, 96px);
-    max-width: 900px;
-    margin-bottom: 20px;
-  }
-  .hero-subtitle {
-    font-family: var(--font-heading);
-    font-size: clamp(22px, 3vw, 28px);
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 4px;
-  }
-  .hero-bengali {
-    font-size: 18px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 4px;
-  }
-  .hero-desc {
-    font-size: 20px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 24px;
-    max-width: 540px;
-    line-height: 1.6;
-  }
-  .btn-gold {
-    display: inline-block;
-    background: var(--gold);
-    color: white;
-    padding: 16px 40px;
-    border-radius: 4px;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 40px;
-    transition: opacity 0.2s;
-  }
-  .btn-gold:hover { opacity: 0.9; }
-
-  /* === INVITATION === */
-  .invitation {
-    padding: 96px 24px 96px;
-    background: var(--cream);
-  }
-  .invitation-inner {
-    max-width: 720px;
-    margin: 0 auto;
-    text-align: center;
-  }
   .section-label {
     font-size: 14px;
     letter-spacing: 0.2em;
@@ -183,45 +101,7 @@
     color: var(--terracotta);
     margin-bottom: 16px;
   }
-  .invitation h2 {
-    font-size: clamp(32px, 4.5vw, 56px);
-    font-weight: 400;
-    color: var(--green-dark);
-    line-height: 1.15;
-    margin-bottom: 32px;
-  }
-  .invitation-text {
-    font-size: 20px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 56px;
-  }
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 32px 56px;
-    align-items: center;
-  }
-  .stat-item { text-align: center; }
-  .stat-number {
-    font-family: var(--font-heading);
-    font-size: clamp(48px, 5vw, 64px);
-    color: var(--green-dark);
-    line-height: 1.1;
-  }
-  .stat-label {
-    font-size: 16px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-  .stat-divider {
-    width: 1px;
-    align-self: stretch;
-    background: rgba(46, 83, 57, 0.1);
-  }
 
-  /* === SECTION DIVIDER === */
   .section-divider {
     height: 1px;
     max-width: 540px;
@@ -229,335 +109,304 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
 
-  /* === SPONSORSHIP CARDS === */
-  .sponsorships {
-    padding: 96px 24px;
-    scroll-margin-top: 80px;
+  /* === HERO === */
+  .page-hero {
+    position: relative;
+    padding: 160px 24px 100px;
+    overflow: hidden;
   }
-  .sponsorships-inner { max-width: 1152px; margin: 0 auto; }
-  .sponsorships h2 {
-    font-size: clamp(32px, 4.5vw, 56px);
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .page-hero-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%);
+  }
+  .page-hero-content {
+    position: relative; z-index: 10;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+  }
+  .page-hero-content .section-label { color: rgba(255,255,255,0.6); }
+  .page-hero-content h1 {
+    font-weight: 300;
+    font-size: clamp(36px, 6vw, 72px);
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .page-hero-content .hero-subtitle {
+    font-size: 20px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* === VISION === */
+  .vision {
+    padding: 96px 24px;
+    background: var(--cream);
+  }
+  .vision-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .vision h2 {
+    font-size: clamp(28px, 4vw, 48px);
     font-weight: 400;
     color: var(--green-dark);
-    text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
-  .sponsorships-desc {
-    text-align: center;
+  .vision p {
     font-size: 20px;
     color: var(--muted);
-    max-width: 640px;
-    margin: 0 auto 80px;
-    line-height: 1.6;
+    line-height: 1.8;
+    margin-bottom: 20px;
   }
-  .sponsor-cards { display: flex; flex-direction: column; gap: 80px; }
+  .vision p:last-child { margin-bottom: 0; }
 
-  .sponsor-card {
+  /* === TWO-COL SECTION === */
+  .two-col {
+    padding: 96px 24px;
+  }
+  .two-col-inner {
+    max-width: 1152px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 56px;
     align-items: center;
   }
-  .sponsor-card.reverse .sponsor-card-image { order: 2; }
-  .sponsor-card.reverse .sponsor-card-text { order: 1; }
-  .sponsor-card-image {
+  .two-col h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--green-dark);
+    margin-bottom: 24px;
+  }
+  .two-col p {
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .two-col-image {
     position: relative;
     aspect-ratio: 4/3;
     border-radius: 8px;
     overflow: hidden;
   }
-  .sponsor-card-image img {
+  .two-col-image img {
     width: 100%; height: 100%;
     object-fit: cover;
   }
-  .sponsor-card h3 {
-    font-size: clamp(24px, 3vw, 36px);
-    font-weight: 400;
-    color: var(--green-dark);
-    margin-bottom: 12px;
-  }
-  .sponsor-card-desc {
-    font-size: 18px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 24px;
-  }
 
-  /* === PLAQUE === */
-  .plaque {
-    position: relative;
-    background: linear-gradient(145deg, #1a2e23 0%, #243d2e 50%, #1a2e23 100%);
-    border: 1.5px solid var(--gold);
-    border-radius: 4px;
-    padding: 24px 28px;
-    color: white;
-    max-width: 384px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(197,165,59,0.15);
-  }
-  .plaque::before {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border: 0.5px solid rgba(197,165,59,0.25);
-    border-radius: 2px;
-    pointer-events: none;
-  }
-  .plaque-rate {
-    font-family: var(--font-heading);
-    font-size: 32px;
-    font-weight: 400;
-    color: var(--gold);
-    line-height: 1.2;
-    margin-bottom: 8px;
-  }
-  .plaque-detail {
-    font-size: 14px;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.05em;
-  }
-  .plaque-detail strong {
-    color: rgba(255,255,255,0.75);
-    font-weight: 400;
-  }
-  .plaque-naming {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 18px;
-    color: var(--gold);
-    margin-top: 14px;
-    padding-top: 12px;
-    border-top: 0.5px solid rgba(197,165,59,0.3);
-    line-height: 1.4;
-  }
-
-  /* === BED DEDICATIONS === */
-  .bed-section { margin-top: 112px; }
-  .bed-section h3 {
-    font-size: clamp(24px, 3vw, 36px);
-    font-weight: 400;
-    color: var(--green-dark);
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .bed-section-desc {
-    text-align: center;
-    font-size: 18px;
-    color: var(--muted);
-    max-width: 540px;
-    margin: 0 auto 48px;
-  }
-  .bed-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .plaque-sm {
-    position: relative;
-    background: linear-gradient(145deg, #1a2e23 0%, #243d2e 50%, #1a2e23 100%);
-    border: 1px solid var(--gold);
-    border-radius: 3px;
-    padding: 20px 24px;
-    color: white;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.12);
-  }
-  .plaque-sm::before {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border: 0.5px solid rgba(197,165,59,0.2);
-    border-radius: 2px;
-    pointer-events: none;
-  }
-  .plaque-sm h4 {
-    font-size: clamp(20px, 2vw, 24px);
-    font-weight: 400;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-  .plaque-sm-desc {
-    font-size: 15px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-  .plaque-sm-rate {
-    font-family: var(--font-heading);
-    font-size: 28px;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-  .plaque-sm-avail {
-    font-size: 13px;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 16px;
-  }
-  .plaque-sm-naming {
-    border-top: 1px solid rgba(197,165,59,0.2);
-    padding-top: 12px;
-    margin-top: 12px;
-    font-family: var(--font-heading);
-    font-size: 16px;
-    font-style: italic;
-    color: rgba(197,165,59,0.8);
-    line-height: 1.4;
-  }
-
-  .detail-link {
-    display: inline-block;
-    margin-top: 64px;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--green-dark);
-    border-bottom: 2px solid rgba(46, 83, 57, 0.3);
-    padding-bottom: 2px;
-    transition: border-color 0.2s;
-  }
-  .detail-link:hover { border-color: var(--green-dark); }
-
-  /* === NAMED ASHRAMS === */
-  .ashrams {
+  /* === CAMPUS NUMBERS === */
+  .campus-numbers {
     padding: 96px 24px;
     background: var(--green-dark);
+    color: white;
   }
-  .ashrams-inner { max-width: 1152px; margin: 0 auto; }
-  .ashrams .section-label { color: rgba(197,165,59,0.8); }
-  .ashrams h2 {
-    font-size: clamp(32px, 4.5vw, 56px);
+  .campus-numbers-inner {
+    max-width: 1152px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .campus-numbers .section-label { color: rgba(197,165,59,0.8); }
+  .campus-numbers h2 {
+    font-size: clamp(28px, 4vw, 48px);
     font-weight: 400;
     color: white;
-    text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
-  .ashrams-desc {
-    text-align: center;
+  .campus-numbers-desc {
     font-size: 20px;
     color: rgba(255,255,255,0.6);
     max-width: 640px;
     margin: 0 auto 56px;
     line-height: 1.6;
   }
-  .ashrams-grid {
+  .numbers-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
   }
-  .ashrams-grid-item {
-    position: relative;
-    aspect-ratio: 4/3;
+  .number-card {
+    padding: 32px 16px;
+    border: 1px solid rgba(197,165,59,0.2);
     border-radius: 8px;
-    overflow: hidden;
+    background: rgba(255,255,255,0.03);
   }
-  .ashrams-grid-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-  }
-
-  /* === HOW YOUR NAME LIVES === */
-  .name-lives {
-    padding: 96px 24px;
-    background: var(--deep-forest);
-    color: white;
-  }
-  .name-lives-inner {
-    max-width: 1152px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
-  }
-  .name-lives-image {
-    position: relative;
-    aspect-ratio: 4/3;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  .name-lives-image img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-  }
-  .name-lives .section-label { color: rgba(197,165,59,0.8); }
-  .name-lives h2 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 300;
-    color: white;
-    margin-bottom: 24px;
-  }
-  .name-lives-text {
-    font-size: 20px;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.7;
-    margin-bottom: 32px;
-  }
-  .features { display: flex; flex-direction: column; gap: 20px; }
-  .feature {
-    display: flex;
-    gap: 16px;
-  }
-  .feature-icon {
+  .number-card-value {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4vw, 56px);
     color: var(--gold);
-    font-size: 20px;
-    margin-top: 2px;
-    flex-shrink: 0;
+    line-height: 1.1;
+    margin-bottom: 8px;
   }
-  .feature-title {
-    font-weight: 600;
-    color: white;
-    font-size: 18px;
-    margin-bottom: 2px;
-  }
-  .feature-desc {
+  .number-card-label {
+    font-size: 16px;
     color: rgba(255,255,255,0.6);
-    font-size: 18px;
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
-  /* === THE CAMPUS === */
-  .campus {
+  /* === COMPONENTS TABLE === */
+  .components {
     padding: 96px 24px;
   }
-  .campus-inner {
-    max-width: 1152px;
+  .components-inner {
+    max-width: 900px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
   }
-  .campus h2 {
-    font-size: clamp(32px, 4vw, 48px);
+  .components h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
     font-weight: 400;
     color: var(--green-dark);
-    margin-bottom: 24px;
+    text-align: center;
+    margin-bottom: 16px;
   }
-  .campus-text {
+  .components-desc {
+    text-align: center;
     font-size: 20px;
     color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 24px;
+    max-width: 640px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
   }
-  .campus-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    font-size: 18px;
+  .component-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .component-table th {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--green-dark);
+  }
+  .component-table td {
+    font-size: 17px;
+    color: var(--foreground);
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(46,83,57,0.1);
+  }
+  .component-table tr:last-child td {
+    border-bottom: none;
+  }
+  .component-table .component-name {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--green-dark);
+  }
+  .component-table .component-desc {
+    font-size: 15px;
     color: var(--muted);
   }
-  .campus-list li::before {
-    content: '\2022';
-    margin-right: 10px;
+
+  /* === IMAGE STRIP === */
+  .image-strip {
+    padding: 0 24px;
   }
-  .campus-image {
-    position: relative;
-    aspect-ratio: 4/3;
-    border-radius: 8px;
+  .image-strip-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .image-strip-item {
+    aspect-ratio: 1;
+    border-radius: 6px;
     overflow: hidden;
   }
-  .campus-image img {
+  .image-strip-item img {
     width: 100%; height: 100%;
     object-fit: cover;
   }
+
+  /* === TEAM === */
+  .team {
+    padding: 96px 24px;
+    background: white;
+  }
+  .team-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .team h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--green-dark);
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    text-align: center;
+  }
+  .team-member-name {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+  .team-member-role {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+  }
+  .team-member-bio {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* === INSTITUTIONAL === */
+  .institutional {
+    padding: 64px 24px 96px;
+  }
+  .institutional-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .institutional h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 400;
+    color: var(--green-dark);
+    margin-bottom: 32px;
+  }
+  .institutional-card {
+    background: white;
+    border-radius: 8px;
+    padding: 32px;
+    text-align: left;
+  }
+  .institutional-card p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .institutional-card strong {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+  .institutional-card a {
+    color: var(--river-blue);
+    transition: color 0.2s;
+  }
+  .institutional-card a:hover { color: var(--green-dark); }
 
   /* === CTA === */
   .cta {
@@ -570,7 +419,10 @@
     width: 100%; height: 100%;
     object-fit: cover;
   }
-  .cta .hero-gradient { position: absolute; inset: 0; }
+  .cta-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
+  }
   .cta-content {
     position: relative; z-index: 10;
     max-width: 640px;
@@ -596,6 +448,17 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+  .btn-gold {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .btn-gold:hover { opacity: 0.9; }
   .btn-outline {
     display: inline-block;
     border: 1px solid rgba(255,255,255,0.4);
@@ -667,55 +530,21 @@
   /* === RESPONSIVE === */
   @media (max-width: 768px) {
     .navbar-links { display: none; }
-    .sponsor-card {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    .sponsor-card.reverse .sponsor-card-image { order: 0; }
-    .sponsor-card.reverse .sponsor-card-text { order: 0; }
-    .bed-grid { grid-template-columns: 1fr; }
-    .ashrams-grid { grid-template-columns: 1fr; }
-    .name-lives-inner { grid-template-columns: 1fr; }
-    .campus-inner { grid-template-columns: 1fr; }
+    .two-col-inner { grid-template-columns: 1fr; }
+    .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+    .image-strip-inner { grid-template-columns: repeat(2, 1fr); }
+    .team-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
     .footer-inner { grid-template-columns: 1fr; }
-    .stat-divider { display: none; }
-    .invitation { padding: 64px 24px; }
-    .sponsorships { padding: 64px 24px; }
-    .ashrams { padding: 64px 24px; }
-    .name-lives { padding: 64px 24px; }
-    .campus { padding: 64px 24px; }
+    .page-hero { padding: 120px 24px 80px; }
   }
 
   @media (max-width: 375px) {
     body { font-size: 16px; }
-    .hero h1 { font-size: 36px; }
+    .numbers-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
   }
 
-  /* === PRETEXT READY INDICATOR === */
-  [data-pretext] {
-    transition: height 0.1s ease-out;
-  }
-
-  /* === DARK MODE === */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #111;
-      --foreground: #e5e5e5;
-      --cream: #111;
-      --muted: #999;
-    }
-    .navbar { background: rgba(17,17,17,0.92); }
-    .invitation { background: #111; }
-  }
-
-  /* === REDUCED MOTION === */
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { transition: none !important; }
-  }
-
-  /* === CONTENTEDITABLE FOCUS === */
-  [contenteditable]:focus {
+  /* Focus */
+  *:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 2px;
     border-radius: 2px;
@@ -727,325 +556,286 @@
 <!-- NAVBAR -->
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar-inner">
-    <a href="#" class="navbar-brand">
+    <a href="index.html" class="navbar-brand">
       <img src="brand/KarmYogLogoYellow.png" alt="KarmYog">
       <span>KarmYog Vatika</span>
     </a>
     <div class="navbar-links">
-      <a href="index.html">Home</a>
+      <a href="index.html" class="active">Home</a>
       <a href="sponsor.html">Sponsor</a>
       <a href="gallery.html">Gallery</a>
-      <a href="#about">Foundation</a>
-      <a href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero" aria-label="Hero">
-  <img class="hero-bg" src="images/sponsorship/09-campus-grand-aerial-towers.jpeg"
+<section class="page-hero" aria-label="Hero">
+  <img class="page-hero-bg" src="images/sponsorship/09-campus-grand-aerial-towers.jpeg"
        alt="KarmYog Vatika grand campus aerial view with towers, temple complex, and Ganges frontage"
        loading="eager">
-  <div class="hero-gradient" aria-hidden="true"></div>
-  <div class="hero-content">
-    <p class="hero-label">KarmYog for 21st Century Foundation</p>
-    <h1 data-pretext contenteditable>Leave a name that outlives you</h1>
-    <p class="hero-subtitle" data-pretext contenteditable>KarmYog Vatika at RangaMati</p>
-    <p class="hero-bengali">কর্মযোগ বাটিকা</p>
-    <p class="hero-desc" data-pretext contenteditable>Sponsor a living space on the banks of the Ganges. Your name, etched in stone, becomes part of an intergenerational campus forever.</p>
-    <a href="#sponsorships" class="btn-gold">Explore Sponsorships</a>
+  <div class="page-hero-gradient" aria-hidden="true"></div>
+  <div class="page-hero-content">
+    <p class="section-label">The Project</p>
+    <h1>A Living Campus on the Ganges</h1>
+    <p class="hero-subtitle">97 kathas of land near Uluberia, West Bengal. Four Named Ashrams. A Dharma Temple Complex. 150 learners and 60 elders living, learning, and growing together.</p>
   </div>
 </section>
 
-<!-- INVITATION -->
-<section class="invitation" aria-label="Invitation">
-  <div class="invitation-inner">
-    <p class="section-label">An Invitation</p>
-    <h2 data-pretext contenteditable>Sponsor a living space on the banks of the sacred Ganges</h2>
-    <p class="invitation-text" data-pretext contenteditable>An intergenerational campus where children learn from elders, elders find purpose in youth, and the timeless principles of KarmYog come alive on the sacred river. Four Named Ashrams, each a self-contained community, surround the Dharma Mata Shakti Devi Temple Complex.</p>
-    <div class="stats">
-      <div class="stat-item">
-        <p class="stat-number">4</p>
-        <p class="stat-label">Named Ashrams</p>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <p class="stat-number">97</p>
-        <p class="stat-label">Kathas of Land</p>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat-item">
-        <p class="stat-number">Ganges</p>
-        <p class="stat-label">Direct Frontage</p>
-      </div>
-    </div>
+<!-- VISION -->
+<section class="vision" aria-label="Vision">
+  <div class="vision-inner">
+    <p class="section-label">The Vision</p>
+    <h2>Not a Real Estate Project. A Living Ecosystem.</h2>
+    <p>KarmYog Vatika at RangaMati is a mission-led intergenerational institutional campus on the banks of the Ganges. It is not a housing society, not a retirement home, not a school. It is all of these woven into one — an ecosystem where the young learn from the old, the old find purpose in the young, and the principles of KarmYog come alive in daily practice.</p>
+    <p>The campus is spread across approximately 97 kathas of riverside land, with direct Ganges frontage. At its heart lies the Dharma Mata Shakti Devi Temple Complex, occupying roughly 17 kathas. Surrounding the temple, four identical Named Ashrams — each a self-contained community — occupy the remaining 80 kathas.</p>
+    <p>Construction of the Temple Complex commenced in January 2026. The land remains under the stewardship of the founding family, with KarmYog for 21st Century Foundation (KYF) holding development and operating rights for 99 years.</p>
   </div>
 </section>
 
 <div class="section-divider" aria-hidden="true"></div>
 
-<!-- SPONSORSHIPS -->
-<section id="sponsorships" class="sponsorships" aria-label="Sponsorship Options">
-  <div class="sponsorships-inner">
-    <p class="section-label" style="text-align:center">Choose Your Legacy</p>
-    <h2 data-pretext contenteditable>What You Can Sponsor</h2>
-    <p class="sponsorships-desc" data-pretext contenteditable>Each sponsorship comes with permanent naming rights — a dedication plaque bearing the name and honorific of your choosing, visible to every visitor who walks these grounds.</p>
-
-    <div class="sponsor-cards">
-
-      <!-- Gunagrahi Awaas -->
-      <article class="sponsor-card">
-        <div class="sponsor-card-image">
-          <img src="images/sponsorship/03-gunakul-dormitory-interior.jpeg"
-               alt="GunaKul dormitory interior" loading="lazy">
-        </div>
-        <div class="sponsor-card-text">
-          <h3 data-pretext contenteditable>Gunagrahi Awaas</h3>
-          <p class="sponsor-card-desc" data-pretext contenteditable>Residential dormitory for 39 GunaKul learners — the heart of the intergenerational promise. Each awaas houses young scholars learning from elders, immersed in biophilic design and daily practice.</p>
-          <div class="plaque">
-            <p class="plaque-rate">&#8377;51 Lakhs</p>
-            <p class="plaque-detail"><strong>3 per ashram</strong> &middot; <strong>12 available</strong> across campus</p>
-            <p class="plaque-naming">&ldquo;Mata Ananya Devi Gunagrahi Awaas&rdquo;</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Swajan Griha -->
-      <article class="sponsor-card reverse">
-        <div class="sponsor-card-image">
-          <img src="images/sponsorship/10-swajan-griha-bedroom-interior.jpeg"
-               alt="Swajan Griha elder residence interior" loading="lazy">
-        </div>
-        <div class="sponsor-card-text">
-          <h3 data-pretext contenteditable>Swajan Griha</h3>
-          <p class="sponsor-card-desc" data-pretext contenteditable>Private 1,000 sq ft elder residence on the Ganges. Lifetime dignified community living for those who have given a lifetime of service — now surrounded by purpose, youth, and the sacred river.</p>
-          <div class="plaque">
-            <p class="plaque-rate">&#8377;21 Lakhs</p>
-            <p class="plaque-detail"><strong>7 per ashram</strong> &middot; <strong>28 available</strong> across campus</p>
-            <p class="plaque-naming">&ldquo;Pitrideb Aditya Swajan Griha&rdquo;</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Atithi Kutir -->
-      <article class="sponsor-card">
-        <div class="sponsor-card-image">
-          <img src="images/sponsorship/06-atithi-kutir-named-plaque.jpeg"
-               alt="Atithi Kutir guest cottage with named plaque" loading="lazy">
-        </div>
-        <div class="sponsor-card-text">
-          <h3 data-pretext contenteditable>Atithi Kutir</h3>
-          <p class="sponsor-card-desc" data-pretext contenteditable>Guest cottage for visiting Acharyas, scholars, and spiritual seekers. A riverside retreat where knowledge-bearers stay as honoured guests of the campus.</p>
-          <div class="plaque">
-            <p class="plaque-rate">&#8377;21 Lakhs</p>
-            <p class="plaque-detail"><strong>3 per ashram</strong> &middot; <strong>12 available</strong> across campus</p>
-            <p class="plaque-naming">&ldquo;Bhrata Aruneshwar Atithi Kutir&rdquo;</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Bhojanalaya -->
-      <article class="sponsor-card reverse">
-        <div class="sponsor-card-image">
-          <img src="images/sponsorship/08-bhojanalaya-dining-interior.jpeg"
-               alt="Bhojanalaya community dining hall" loading="lazy">
-        </div>
-        <div class="sponsor-card-text">
-          <h3 data-pretext contenteditable>Bhojanalaya</h3>
-          <p class="sponsor-card-desc" data-pretext contenteditable>Community dining hall — farm-to-table meals rooted in Ayurvedic wisdom. Where elders and learners break bread together every day, nourished by the campus gardens.</p>
-          <div class="plaque">
-            <p class="plaque-rate">&#8377;11 Lakhs</p>
-            <p class="plaque-detail"><strong>1 per ashram</strong> &middot; <strong>4 available</strong> across campus</p>
-            <p class="plaque-naming">&ldquo;Adorini Sukanya Bhojanalaya&rdquo;</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Biophilic Commons -->
-      <article class="sponsor-card">
-        <div class="sponsor-card-image">
-          <img src="images/sponsorship/04-ashram-sant-jaleswar-gardens.jpeg"
-               alt="Biophilic Commons gathering space" loading="lazy">
-        </div>
-        <div class="sponsor-card-text">
-          <h3 data-pretext contenteditable>Biophilic Commons</h3>
-          <p class="sponsor-card-desc" data-pretext contenteditable>Shared gathering space — performing arts, science labs, intergenerational learning. The intellectual heart of each ashram, where generations collide and create.</p>
-          <div class="plaque">
-            <p class="plaque-rate">&#8377;11 Lakhs</p>
-            <p class="plaque-detail"><strong>1 per ashram</strong> &middot; <strong>4 available</strong> across campus</p>
-            <p class="plaque-naming">&ldquo;Mahatma Aryan Dev Shabhaghar&rdquo;</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- Biophilic Vatika -->
-      <article class="sponsor-card reverse">
-        <div class="sponsor-card-image">
-          <img src="images/sponsorship/07-vatika-learning-garden-named.jpeg"
-               alt="Biophilic Vatika landscaped garden" loading="lazy">
-        </div>
-        <div class="sponsor-card-text">
-          <h3 data-pretext contenteditable>Biophilic Vatika</h3>
-          <p class="sponsor-card-desc" data-pretext contenteditable>Landscaped garden with native flora — a living memorial in the campus grounds. Your name among the trees, visible to every visitor who walks these paths.</p>
-          <div class="plaque">
-            <p class="plaque-rate">&#8377;7 Lakhs</p>
-            <p class="plaque-detail"><strong>1 per ashram</strong> &middot; <strong>4 available</strong> across campus</p>
-            <p class="plaque-naming">&ldquo;Sant Varuneshwar Vatika&rdquo;</p>
-          </div>
-        </div>
-      </article>
-
+<!-- BIOPHILIC DESIGN -->
+<section class="two-col" aria-label="Biophilic Design">
+  <div class="two-col-inner">
+    <div>
+      <p class="section-label">Design Philosophy</p>
+      <h2>Biophilic by Design, Not by Decoration</h2>
+      <p>Every structure on the campus is designed around biophilic principles — green roofs, living walls, native flora, water channels, and natural light as primary design elements. This is not ornamentation. The architecture itself is a teaching tool.</p>
+      <p>Ganges-side meditation decks, farm-to-table community gardens, and learning spaces woven into the landscape ensure that nature is not something you visit — it is where you live.</p>
+      <p>The biophilic approach draws from over a decade of KY21C's work in ecological design, most recently demonstrated at the Biophilic Durga Puja 2025 at IIT Kharagpur Research Park — a 15,000 sq ft pavilion that drew 1 lakh visitors and 3 million digital views.</p>
     </div>
-
-    <!-- BED-LEVEL DEDICATIONS -->
-    <div class="bed-section">
-      <div class="section-divider" style="margin-bottom:64px" aria-hidden="true"></div>
-      <p class="section-label" style="text-align:center">Bed-Level Dedications</p>
-      <h3 data-pretext contenteditable>Name an Individual Bed</h3>
-      <p class="bed-section-desc" data-pretext contenteditable>A more intimate gesture — dedicate a single bed within a dormitory or residence, with a personal plaque at the bedside.</p>
-
-      <div class="bed-grid">
-        <div class="plaque-sm">
-          <h4>GunaKul Beds</h4>
-          <p class="plaque-sm-desc">Name a learner's bed in the Gunagrahi Awaas</p>
-          <p class="plaque-sm-rate">&#8377;2 Lakhs</p>
-          <p class="plaque-sm-avail">156 beds available</p>
-          <p class="plaque-sm-naming">&ldquo;In loving memory of: Tejomoy Arnab&rdquo;</p>
-        </div>
-        <div class="plaque-sm">
-          <h4>Swajan Beds</h4>
-          <p class="plaque-sm-desc">Name an elder's bed in the Swajan Griha</p>
-          <p class="plaque-sm-rate">&#8377;4 Lakhs</p>
-          <p class="plaque-sm-avail">56 beds available</p>
-          <p class="plaque-sm-naming">&ldquo;In honour of: Pitrideb Sunil Kumar&rdquo;</p>
-        </div>
-        <div class="plaque-sm">
-          <h4>Atithi Beds</h4>
-          <p class="plaque-sm-desc">Name a guest bed in the Atithi Kutir</p>
-          <p class="plaque-sm-rate">&#8377;4 Lakhs</p>
-          <p class="plaque-sm-avail">24 beds available</p>
-          <p class="plaque-sm-naming">&ldquo;In honour of: Acharya Devprasad&rdquo;</p>
-        </div>
-      </div>
-    </div>
-
-    <div style="text-align:center">
-      <a href="sponsor.html" class="detail-link">View detailed sponsorship information &rarr;</a>
+    <div class="two-col-image">
+      <img src="images/sponsorship/07-vatika-learning-garden-named.jpeg"
+           alt="Biophilic Vatika learning garden with native flora and named plaque"
+           loading="lazy">
     </div>
   </div>
 </section>
 
-<!-- NAMED ASHRAMS -->
-<section id="gallery" class="ashrams" aria-label="Named Ashrams">
-  <div class="ashrams-inner">
-    <p class="section-label" style="text-align:center">Legacy in Architecture</p>
-    <h2 data-pretext contenteditable>Your Name in Architecture</h2>
-    <p class="ashrams-desc" data-pretext contenteditable>Each of the four ashrams carries a sponsor's name — visible on the entrance, etched in stone, in both English and Bengali. A building that bears your name for generations.</p>
-    <div class="ashrams-grid">
-      <div class="ashrams-grid-item">
-        <img src="images/sponsorship/01-ashram-sant-paleswar-riverside.jpeg"
-             alt="Sant Paleswar Ashram — riverside multi-story building with named entrance plaque" loading="lazy">
-      </div>
-      <div class="ashrams-grid-item">
-        <img src="images/sponsorship/04-ashram-sant-jaleswar-gardens.jpeg"
-             alt="Sant Jaleswar Ashram with lush gardens and stream" loading="lazy">
-      </div>
-      <div class="ashrams-grid-item">
-        <img src="images/sponsorship/11-campus-panoramic-temple-ashrams.jpeg"
-             alt="Full panorama of campus with temple, ashrams, river, and families" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW YOUR NAME LIVES HERE -->
-<section class="name-lives" aria-label="How Your Name Lives Here">
-  <div class="name-lives-inner">
-    <div class="name-lives-image">
+<!-- INTERGENERATIONAL -->
+<section class="two-col" style="background: white;" aria-label="Intergenerational Living">
+  <div class="two-col-inner">
+    <div class="two-col-image" style="order: -1;">
       <img src="images/sponsorship/03-gunakul-dormitory-interior.jpeg"
-           alt="GunaKul dormitory interior showing dedication plaques at each bed" loading="lazy">
+           alt="GunaKul dormitory interior — biophilic design with natural light, wooden elements, and community spaces"
+           loading="lazy">
     </div>
     <div>
-      <p class="section-label">Permanent Recognition</p>
-      <h2 data-pretext contenteditable>How Your Name Lives Here</h2>
-      <p class="name-lives-text" data-pretext contenteditable>Every sponsored space carries a dedication plaque — hand-crafted, permanently installed, bearing the name and honorific you choose. This is not a donor wall buried in a corridor. Your name is at the entrance of the space itself, seen by every person who enters.</p>
-      <div class="features">
-        <div class="feature">
-          <span class="feature-icon" aria-hidden="true">&#10022;</span>
-          <div>
-            <p class="feature-title">Dedication Plaque</p>
-            <p class="feature-desc">Hand-crafted stone or brass plaque at the entrance of your sponsored space.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <span class="feature-icon" aria-hidden="true">&#10022;</span>
-          <div>
-            <p class="feature-title">Honorific of Your Choice</p>
-            <p class="feature-desc">Mata, Pitrideb, Bhrata, Adorini, Sant, Mahatma — choose the title that honours your intent.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <span class="feature-icon" aria-hidden="true">&#10022;</span>
-          <div>
-            <p class="feature-title">Permanent Installation</p>
-            <p class="feature-desc">Your plaque is part of the building itself — not a temporary sign, but a lasting inscription.</p>
-          </div>
-        </div>
-        <div class="feature">
-          <span class="feature-icon" aria-hidden="true">&#10022;</span>
-          <div>
-            <p class="feature-title">Legacy Beyond Lifetime</p>
-            <p class="feature-desc">The campus is designed to endure for generations. So does your name.</p>
-          </div>
-        </div>
+      <p class="section-label">The Model</p>
+      <h2>Two Generations, One Campus</h2>
+      <p>The campus brings together two groups who need each other: <strong>Gunagrahis</strong> (learners) and <strong>Swajans</strong> (elders). The learners are young scholars enrolled in the KarmYog GunaKul, living in residential dormitories. The elders are those who have given a lifetime of service and now live in dignified community homes by the river.</p>
+      <p>They share dining halls, learning gardens, performing arts spaces, and daily rituals. The elders are not passive residents — they are mentors, storytellers, and living repositories of knowledge. The learners are not passive students — they bring energy, curiosity, and digital fluency.</p>
+      <p>This is not charity. It is an institutional model designed for mutual enrichment, sustained by a cross-subsidy structure: 40% self-paying, 30% contributing, and 30% scholarship-supported participants.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS NUMBERS -->
+<section class="campus-numbers" aria-label="Campus in Numbers">
+  <div class="campus-numbers-inner">
+    <p class="section-label">The Campus in Numbers</p>
+    <h2>Four Identical Ashrams. One Unified Campus.</h2>
+    <p class="campus-numbers-desc">Every ashram is a self-contained community with residential, dining, gathering, and garden spaces — distributed equally across the campus.</p>
+    <div class="numbers-grid">
+      <div class="number-card">
+        <p class="number-card-value">4</p>
+        <p class="number-card-label">Named Ashrams</p>
+      </div>
+      <div class="number-card">
+        <p class="number-card-value">97</p>
+        <p class="number-card-label">Kathas of Land</p>
+      </div>
+      <div class="number-card">
+        <p class="number-card-value">~150</p>
+        <p class="number-card-label">GunaKul Learners</p>
+      </div>
+      <div class="number-card">
+        <p class="number-card-value">~60</p>
+        <p class="number-card-label">Swajan Elders</p>
+      </div>
+      <div class="number-card">
+        <p class="number-card-value">12</p>
+        <p class="number-card-label">Gunagrahi Awaas</p>
+      </div>
+      <div class="number-card">
+        <p class="number-card-value">28</p>
+        <p class="number-card-label">Swajan Grihas</p>
+      </div>
+      <div class="number-card">
+        <p class="number-card-value">12</p>
+        <p class="number-card-label">Atithi Kutirs</p>
+      </div>
+      <div class="number-card">
+        <p class="number-card-value">300</p>
+        <p class="number-card-label">Sponsorable Items</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THE CAMPUS -->
-<section id="campus" class="campus" aria-label="The Campus">
-  <div class="campus-inner">
-    <div>
-      <p class="section-label">The Campus</p>
-      <h2 data-pretext contenteditable>An Intergenerational Campus on the Ganges</h2>
-      <p class="campus-text" data-pretext contenteditable>KarmYog Vatika at RangaMati is spread across 97 kathas on the banks of the Ganges in rural West Bengal. Four Named Ashrams, each a self-contained community, surround the Dharma Mata Shakti Devi Temple Complex.</p>
-      <ul class="campus-list">
-        <li>Dharma Temple Complex — construction commenced January 2026</li>
-        <li>Performing Arts Centers &amp; Science Labs in every ashram</li>
-        <li>Community Dining Halls with farm-to-table gardens</li>
-        <li>Ganges-side meditation decks and learning spaces</li>
-        <li>150 learners, 60 elders, and visiting scholars living together</li>
-      </ul>
-      <a href="gallery.html" class="detail-link" style="margin-top:32px">View Full Gallery &rarr;</a>
+<!-- PER-ASHRAM COMPONENTS -->
+<section class="components" aria-label="Ashram Components">
+  <div class="components-inner">
+    <p class="section-label" style="text-align:center">Inside Each Ashram</p>
+    <h2>What Every Named Ashram Contains</h2>
+    <p class="components-desc">Each of the four ashrams is identically structured — a complete intergenerational community under one named roof.</p>
+    <table class="component-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Count</th>
+          <th>Capacity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="component-name">Gunagrahi Awaas</span><br>
+            <span class="component-desc">Residential dormitory for GunaKul learners</span>
+          </td>
+          <td>3</td>
+          <td>13 beds each (39 total)</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="component-name">Swajan Griha</span><br>
+            <span class="component-desc">Elder living unit</span>
+          </td>
+          <td>7</td>
+          <td>2 beds each (14 total)</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="component-name">Atithi Kutir</span><br>
+            <span class="component-desc">Guest accommodation for visiting Acharyas, Gurus, and institutional guests</span>
+          </td>
+          <td>3</td>
+          <td>2 beds each (6 total)</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="component-name">Bhojanalaya</span><br>
+            <span class="component-desc">Multipurpose Dining Hall &amp; Performing Arts Center</span>
+          </td>
+          <td>1</td>
+          <td>~100 people</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="component-name">Biophilic Commons</span><br>
+            <span class="component-desc">Sit-out deck &amp; community event space</span>
+          </td>
+          <td>1</td>
+          <td>Open</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="component-name">Biophilic Vatika</span><br>
+            <span class="component-desc">Community Learning Garden</span>
+          </td>
+          <td>1</td>
+          <td>Open</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- IMAGE STRIP -->
+<section class="image-strip" aria-label="Campus Views">
+  <div class="image-strip-inner">
+    <div class="image-strip-item">
+      <img src="images/sponsorship/01-ashram-sant-paleswar-riverside.jpeg" alt="Sant Paleswar Ashram riverside view" loading="lazy">
     </div>
-    <div class="campus-image">
+    <div class="image-strip-item">
+      <img src="images/sponsorship/02-commons-deck-riverside-sunset.jpeg" alt="Commons deck by the riverside at sunset" loading="lazy">
+    </div>
+    <div class="image-strip-item">
+      <img src="images/sponsorship/04-ashram-sant-jaleswar-gardens.jpeg" alt="Sant Jaleswar Ashram with lush gardens" loading="lazy">
+    </div>
+    <div class="image-strip-item">
+      <img src="images/sponsorship/08-bhojanalaya-dining-interior.jpeg" alt="Bhojanalaya community dining hall interior" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- MISSION BIOPHILIA -->
+<section class="two-col" style="padding-top: 96px;" aria-label="Mission Biophilia">
+  <div class="two-col-inner">
+    <div>
+      <p class="section-label">The Foundation</p>
+      <h2>KarmYog for 21st Century</h2>
+      <p>KarmYog for 21st Century Foundation (KY21C) is the development entity behind the campus. Headquartered at IIT Kharagpur Research Park, Newtown Kolkata, KY21C represents over three decades of pioneering work at the intersection of education, sustainability, technology, and art.</p>
+      <p>At its heart lies <strong>Mission Biophilia</strong> — a national initiative to reorient human habitats toward harmony with nature through biophilic design, ecological stewardship, and intergenerational learning.</p>
+      <p>KarmYog Vatika at RangaMati is the flagship campus of this mission — where the philosophy moves from concept to lived reality.</p>
+    </div>
+    <div class="two-col-image">
       <img src="images/sponsorship/05-campus-aerial-green-roofs.jpeg"
-           alt="KarmYog Vatika campus aerial view with green roof buildings by the river" loading="lazy">
+           alt="Campus aerial view showing green roof buildings by the Ganges"
+           loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" aria-label="Leadership">
+  <div class="team-inner">
+    <p class="section-label" style="text-align:center">Leadership</p>
+    <h2>The Team Behind the Vision</h2>
+    <div class="team-grid">
+      <div>
+        <p class="team-member-name">MahAcharya Sourabh J. Sarkar</p>
+        <p class="team-member-role">Founder, KarmYog for 21st Century</p>
+        <p class="team-member-bio">A systems thinker, educator, and designer with over three decades of multidisciplinary experience. Graduate of IIT Kharagpur and Syracuse University. Conceptual architect of Mission Biophilia and founder of the KarmYog Vatika Network.</p>
+      </div>
+      <div>
+        <p class="team-member-name">GunaMata Reena J. Sarkar</p>
+        <p class="team-member-role">Director, Systems &amp; Governance</p>
+        <p class="team-member-bio">Co-founder and guiding force behind the Foundation's institutional structure. Over two decades of experience in organizational systems, team culture development, and governance frameworks.</p>
+      </div>
+      <div>
+        <p class="team-member-name">GuruDasa Ram Badrinathan</p>
+        <p class="team-member-role">Co-Founder, AI &amp; Strategy</p>
+        <p class="team-member-bio">Heads KY21C's AI for Bharat initiative, bridging artificial intelligence, business transformation, and social impact. Deep domain expertise in digital strategy, analytics, and enterprise transformation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONAL DETAILS -->
+<section class="institutional" aria-label="Institutional Details">
+  <div class="institutional-inner">
+    <h2>Institutional Details</h2>
+    <div class="institutional-card">
+      <p><strong>Name:</strong> KarmYog for 21st Century Foundation</p>
+      <p><strong>Address:</strong> 401, IIT Kharagpur Research Park, Newtown, Kolkata 700135</p>
+      <p><strong>Email:</strong> <a href="mailto:reachus@ky21c.org">reachus@ky21c.org</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+919167719898">+91 9167719898</a></p>
+      <p><strong>Agreement Duration:</strong> 99 years from Effective Date</p>
+      <p><strong>Land Title:</strong> Remains with the founding family — KYF holds development and operating rights</p>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section id="contact" class="cta" aria-label="Call to Action">
+<section class="cta" aria-label="Call to Action">
   <img class="cta-bg" src="images/sponsorship/11-campus-panoramic-temple-ashrams.jpeg"
-       alt="KarmYog Vatika campus panorama" loading="lazy">
-  <div class="hero-gradient" aria-hidden="true"></div>
+       alt="Full panorama of campus with temple, ashrams, river, and families" loading="lazy">
+  <div class="cta-gradient" aria-hidden="true"></div>
   <div class="cta-content">
-    <h2 data-pretext contenteditable>Ready to leave your mark?</h2>
-    <p class="cta-text" data-pretext contenteditable>Speak with us about sponsoring a space at KarmYog Vatika. We will walk you through every option, answer every question, and help you find the right legacy.</p>
+    <h2>Be Part of Something That Endures</h2>
+    <p class="cta-text">Sponsor a living space on this campus. Your name, etched in stone, becomes part of an intergenerational community on the banks of the Ganges.</p>
     <div class="cta-buttons">
-      <a href="https://wa.me/919167719898?text=I%20am%20interested%20in%20sponsoring%20a%20space%20at%20KarmYog%20Vatika"
-         target="_blank" rel="noopener noreferrer" class="btn-gold" style="margin-top:0">WhatsApp Us</a>
-      <a href="mailto:reachus@ky21c.org?subject=KarmYog%20Vatika%20Sponsorship%20Inquiry"
-         class="btn-outline">Email Us</a>
+      <a href="sponsor.html" class="btn-gold" style="margin-top:0">Explore Sponsorships</a>
+      <a href="https://wa.me/919167719898?text=I%20would%20like%20to%20know%20more%20about%20KarmYog%20Vatika%20at%20RangaMati"
+         target="_blank" rel="noopener noreferrer" class="btn-outline">WhatsApp Us</a>
     </div>
     <p class="cta-footer">KarmYog for 21st Century Foundation &middot; IIT Kharagpur Research Park, Kolkata</p>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer id="about" class="footer" role="contentinfo">
+<footer class="footer" role="contentinfo">
   <div class="footer-inner">
     <div>
       <h3>KarmYog Vatika</h3>
@@ -1056,8 +846,6 @@
       <div class="footer-links">
         <a href="sponsor.html">Sponsor a Space</a>
         <a href="gallery.html">Gallery</a>
-        <a href="#about">About KY21C Foundation</a>
-        <a href="#contact">Contact Us</a>
       </div>
     </div>
     <div>
@@ -1076,68 +864,6 @@
     <p style="margin-top:4px">&copy; 2026 KarmYog for 21st Century Foundation. All rights reserved.</p>
   </div>
 </footer>
-
-<!-- PRETEXT ENGINE -->
-<script type="module">
-import { prepare, layout } from './pretext.js';
-
-(async function() {
-  'use strict';
-
-  // Wait for fonts to load before measuring text
-  await document.fonts.ready;
-
-  const elements = document.querySelectorAll('[data-pretext]');
-  const prepared = new Map();
-
-  // PREPARE: one-time text measurement
-  for (const el of elements) {
-    const text = el.textContent;
-    const font = getComputedStyle(el).font;
-    try {
-      prepared.set(el, prepare(text, font));
-    } catch (e) {
-      console.warn('Pretext prepare failed for:', el.tagName, e);
-    }
-  }
-
-  // LAYOUT: compute correct heights
-  function relayout() {
-    for (const [el, handle] of prepared) {
-      try {
-        const style = getComputedStyle(el);
-        const lineHeight = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.5;
-        const { height } = layout(handle, el.clientWidth, lineHeight);
-        if (height > 0) {
-          el.style.height = `${height}px`;
-        }
-      } catch (e) {
-        // Silently fall back to CSS
-      }
-    }
-  }
-
-  // RESIZE-AWARE: relayout on viewport changes
-  new ResizeObserver(() => relayout()).observe(document.documentElement);
-  relayout();
-
-  // CONTENTEDITABLE: re-prepare when text is edited
-  for (const el of elements) {
-    if (el.contentEditable === 'true') {
-      new MutationObserver(() => {
-        const font = getComputedStyle(el).font;
-        try {
-          prepared.set(el, prepare(el.textContent, font));
-          relayout();
-        } catch (e) {
-          // Silently fall back
-        }
-      }).observe(el, { characterData: true, subtree: true, childList: true });
-    }
-  }
-})();
-</script>
-
 
 </body>
 </html>
