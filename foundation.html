@@ -96,9 +96,17 @@
   .team-inner { max-width: 1000px; margin: 0 auto; }
   .team h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 400; color: var(--green-dark); text-align: center; margin-bottom: 56px; }
   .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; text-align: center; }
+  .team-photo { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 3px solid rgba(46,83,57,0.1); }
   .team-member-name { font-family: var(--font-heading); font-size: 20px; color: var(--green-dark); margin-bottom: 4px; }
   .team-member-role { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--terracotta); margin-bottom: 16px; }
   .team-member-bio { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+  /* MISSION CARDS */
+  .mission-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 48px; }
+  .mission-card { padding: 32px; border: 1px solid rgba(46,83,57,0.1); border-radius: 8px; background: white; }
+  .mission-card h3 { font-size: 22px; font-weight: 500; color: var(--green-dark); margin-bottom: 12px; }
+  .mission-card p { font-size: 16px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+  .mission-card p:last-child { margin-bottom: 0; }
   .experience-bar { margin-top: 48px; background: var(--cream); border-radius: 8px; padding: 32px; }
   .experience-bar h3 { font-size: 22px; font-weight: 400; color: var(--green-dark); text-align: center; margin-bottom: 24px; }
   .experience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
@@ -148,6 +156,7 @@
     .two-col-inner { grid-template-columns: 1fr; }
     .track-record-grid { grid-template-columns: 1fr; }
     .team-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+    .mission-cards { grid-template-columns: 1fr !important; }
     .experience-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-inner { grid-template-columns: 1fr; }
   }
@@ -169,6 +178,7 @@
       <a href="sponsor.html">Sponsor</a>
       <a href="gallery.html">Gallery</a>
       <a href="foundation.html" class="active">Foundation</a>
+      <a href="community.html">Community</a>
     </div>
   </div>
 </nav>
@@ -236,23 +246,78 @@
   </div>
 </section>
 
+<!-- MILLION VATIKA MISSION -->
+<section class="about" style="background: white;" aria-label="Million Vatika Mission">
+  <div class="about-inner" style="max-width: 800px;">
+    <p class="section-label">The Larger Vision</p>
+    <h2>The Million Vatika Mission</h2>
+    <p>KarmYog Vatika at RangaMati is part of an ambitious national initiative: <strong>one million digitally empowered Learning-Gardens (Vatikas)</strong> — one for every polling booth in the country. A relationship-management platform at population scale, combining livelihood, learning, ecology, and lifestyle transformation.</p>
+    <p>Each Vatika serves four functions:</p>
+    <div class="mission-cards">
+      <div class="mission-card">
+        <h3>Learning Club</h3>
+        <p>Door-step delivery of life-skills and livelihood education, curated from the best experts. <strong>This is free.</strong></p>
+      </div>
+      <div class="mission-card">
+        <h3>Behtar Life Club</h3>
+        <p>An integration of the <strong>Behtar Life Academy</strong> (courses on sustainable living, wellness, financial literacy, Yogic AI) and the <strong>Behtar Life Shop</strong> (curated organic products, ethical sourcing). Exchange of products, services and knowledge — covering the cost of operations.</p>
+      </div>
+      <div class="mission-card">
+        <h3>Government Linkage</h3>
+        <p>Connecting households with governmental schemes, making them responsible beneficiaries. Subsidizes running costs and creates institutional last-mile connectivity.</p>
+      </div>
+      <div class="mission-card">
+        <h3>AI-Powered Biophilic Studio</h3>
+        <p>Content creation and social media presence, powered by AI tools — giving every Vatika a digital voice and community reach.</p>
+      </div>
+    </div>
+    <p style="margin-top: 32px;">RangaMati Vatika is the flagship campus of this mission — where the philosophy of enlightened livelihood at population scale takes physical form on the banks of the Ganges.</p>
+  </div>
+</section>
+
+<!-- VATIKA NETWORK -->
+<section class="about" aria-label="Vatika Network">
+  <div class="about-inner" style="max-width: 800px;">
+    <p class="section-label">The Network</p>
+    <h2>The KarmYog Vatika Network</h2>
+    <p>RangaMati is not alone. It is part of a growing network of KarmYog Vatikas — each serving a different community need, each rooted in the same principles of biophilic design, intergenerational learning, and dignified living.</p>
+    <div class="mission-cards" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="mission-card">
+        <h3>Shrikunj Vatika</h3>
+        <p>Senior living residence in New Town, Kolkata. 16 units, 24 capacity. Ready February 2026.</p>
+      </div>
+      <div class="mission-card">
+        <h3>Rosedale Vatika</h3>
+        <p>4,000 sq ft retail experience store at Rosedale Plaza, Newtown. Integration of Nature, Culture &amp; Lifestyle.</p>
+      </div>
+      <div class="mission-card">
+        <h3>UniWorld C2 Vatika</h3>
+        <p>Senior assisted services in an existing community in New Town. Operational and serving elders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TEAM -->
-<section class="team" aria-label="Leadership">
+<section class="team" style="background: white;" aria-label="Leadership">
   <div class="team-inner">
     <p class="section-label" style="text-align:center">Leadership</p>
     <h2>The Team Behind the Vision</h2>
     <div class="team-grid">
       <div>
+        <img class="team-photo" src="brand/team-mahacharya.jpg" alt="MahAcharya Sourabh J. Sarkar">
         <p class="team-member-name">MahAcharya Sourabh J. Sarkar</p>
         <p class="team-member-role">Founder, KarmYog for 21st Century</p>
-        <p class="team-member-bio">A systems thinker, educator, and designer with over three decades of multidisciplinary experience. Graduate of IIT Kharagpur and Syracuse University. Conceptual architect of Mission Biophilia and founder of the KarmYog Vatika Network.</p>
+        <p class="team-member-bio">A systems thinker, educator, and designer with over three decades of multidisciplinary experience. Graduate of IIT Kharagpur and Syracuse University. Conceptual architect of Mission Biophilia, creator of OmniDEL, and founder of the KarmYog Vatika Network. Recipient of the NSDC Best Learning Methodology Award and a $1M Tata Trusts grant for educational innovation.</p>
       </div>
       <div>
+        <img class="team-photo" src="brand/team-gunamata.jpg" alt="GunaMata Reena J. Sarkar">
         <p class="team-member-name">GunaMata Reena J. Sarkar</p>
         <p class="team-member-role">Director, Systems &amp; Governance</p>
-        <p class="team-member-bio">Co-founder and guiding force behind the Foundation's institutional structure. Over two decades of experience in organizational systems, team culture development, and governance frameworks.</p>
+        <p class="team-member-bio">Co-founder and guiding force behind the Foundation's institutional structure. Over two decades of experience in organizational systems, team culture development, and governance frameworks. Leads KY21C's Systems and Governance Division.</p>
       </div>
       <div>
+        <img class="team-photo" src="brand/team-gurudasa.jpg" alt="GuruDasa Ram Badrinathan">
         <p class="team-member-name">GuruDasa Ram Badrinathan</p>
         <p class="team-member-role">Co-Founder, AI &amp; Strategy</p>
         <p class="team-member-bio">Heads KY21C's AI for Bharat initiative, bridging artificial intelligence, business transformation, and social impact. Deep domain expertise in digital strategy, analytics, and enterprise transformation.</p>
@@ -317,6 +382,7 @@
         <a href="sponsor.html">Sponsor a Space</a>
         <a href="gallery.html">Gallery</a>
         <a href="foundation.html">Foundation</a>
+        <a href="community.html">Community</a>
       </div>
     </div>
     <div>

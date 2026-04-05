@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Community — KarmYog Vatika at RangaMati</title>
+<meta name="description" content="Who lives at KarmYog Vatika at RangaMati — Gunagrahis, Swajans, visiting Acharyas, and sponsors. How they join. What binds them together. The Community Charter.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --background: #FAFAF5;
+    --foreground: #333333;
+    --green-dark: #2E5339;
+    --green-mid: #43A06B;
+    --green-light: #6BBF8A;
+    --terracotta: #C5784A;
+    --river-blue: #4A7C9B;
+    --gold: #C5A53B;
+    --cream: #FAFAF5;
+    --muted: #666666;
+    --deep-forest: #1a2e23;
+    --font-heading: 'Fraunces', Georgia, serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.15;
+  }
+
+  img { display: block; max-width: 100%; height: auto; }
+  a { text-decoration: none; }
+
+  /* === NAVBAR === */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background: rgba(250, 250, 245, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(46, 83, 57, 0.1);
+  }
+  .navbar-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--green-dark);
+  }
+  .navbar-brand img { height: 36px; width: auto; border-radius: 4px; }
+  .navbar-brand span {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .navbar-links { display: flex; gap: 32px; }
+  .navbar-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(51, 51, 51, 0.7);
+    transition: color 0.2s;
+  }
+  .navbar-links a:hover { color: var(--green-dark); }
+  .navbar-links a.active {
+    color: var(--green-dark);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+  }
+
+  .section-label {
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+  }
+
+  .section-divider {
+    height: 1px;
+    max-width: 540px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* === HERO === */
+  .page-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+  .page-hero-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,
+      rgba(0,0,0,0.55) 0%,
+      rgba(0,0,0,0.35) 20%,
+      rgba(0,0,0,0.05) 40%,
+      rgba(0,0,0,0.05) 60%,
+      rgba(0,0,0,0.35) 80%,
+      rgba(0,0,0,0.6) 100%);
+  }
+  .page-hero-content {
+    position: relative; z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    padding: 100px 24px 60px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .hero-top {
+    text-align: center;
+  }
+  .hero-top .section-label { color: rgba(255,255,255,0.6); }
+  .hero-top h1 {
+    font-weight: 300;
+    font-size: clamp(36px, 6vw, 72px);
+    margin-bottom: 0;
+    line-height: 1.1;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .hero-bottom {
+    text-align: center;
+  }
+  .hero-bottom .hero-subtitle {
+    font-size: 20px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+    max-width: 640px;
+    margin: 0 auto;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+  }
+
+  /* === VISION (reused for intro sections) === */
+  .vision {
+    padding: 96px 24px;
+    background: var(--cream);
+  }
+  .vision-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .vision h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    color: var(--green-dark);
+    margin-bottom: 32px;
+  }
+  .vision p {
+    font-size: 20px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .vision p:last-child { margin-bottom: 0; }
+
+  /* === COMMUNITY CARDS === */
+  .community-cards {
+    padding: 96px 24px;
+  }
+  .community-cards-inner {
+    max-width: 1152px;
+    margin: 0 auto;
+  }
+  .community-cards h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--green-dark);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .community-cards-desc {
+    text-align: center;
+    font-size: 20px;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 56px;
+    line-height: 1.6;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .community-card {
+    background: white;
+    border-radius: 8px;
+    padding: 40px 32px;
+    border: 1px solid rgba(46, 83, 57, 0.08);
+  }
+  .community-card-icon {
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+  }
+  .community-card h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--green-dark);
+    margin-bottom: 16px;
+  }
+  .community-card p {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .community-card p:last-child { margin-bottom: 0; }
+  .community-card .card-stat {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    color: var(--green-dark);
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(46, 83, 57, 0.1);
+  }
+
+  /* === TWO-COL SECTION === */
+  .two-col {
+    padding: 96px 24px;
+  }
+  .two-col-inner {
+    max-width: 1152px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .two-col h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--green-dark);
+    margin-bottom: 24px;
+  }
+  .two-col p {
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .two-col-image {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .two-col-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  /* === DARK SECTION (model / numbers) === */
+  .dark-section {
+    padding: 96px 24px;
+    background: var(--green-dark);
+    color: white;
+  }
+  .dark-section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .dark-section .section-label { color: rgba(197,165,59,0.8); }
+  .dark-section h2 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    color: white;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .dark-section-desc {
+    font-size: 20px;
+    color: rgba(255,255,255,0.6);
+    max-width: 640px;
+    margin: 0 auto 56px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .model-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .model-card {
+    padding: 32px 24px;
+    border: 1px solid rgba(197,165,59,0.2);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    text-align: center;
+  }
+  .model-card-value {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4vw, 52px);
+    color: var(--gold);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .model-card-label {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .model-card-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+
+  /* === CONTENT SECTION (generic) === */
+  .content-section {
+    padding: 96px 24px;
+  }
+  .content-section.alt-bg { background: white; }
+  .content-section-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .content-section h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 400;
+    color: var(--green-dark);
+    margin-bottom: 32px;
+  }
+  .content-section p {
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .content-section p:last-child { margin-bottom: 0; }
+  .content-section ul {
+    list-style: none;
+    margin: 0 0 20px 0;
+    padding: 0;
+  }
+  .content-section ul li {
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.8;
+    padding: 8px 0 8px 24px;
+    position: relative;
+  }
+  .content-section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .content-section strong {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  /* === NOMINATION TABLE === */
+  .nomination-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0;
+  }
+  .nomination-table th {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--green-dark);
+  }
+  .nomination-table td {
+    font-size: 17px;
+    color: var(--foreground);
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(46,83,57,0.1);
+  }
+  .nomination-table tr:last-child td { border-bottom: none; }
+  .nomination-table .nom-type {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--green-dark);
+  }
+
+  /* === CHARTER CARD === */
+  .charter-card {
+    background: white;
+    border-radius: 8px;
+    padding: 40px;
+    border: 1px solid rgba(46, 83, 57, 0.08);
+    margin-top: 32px;
+  }
+  .charter-card p {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .charter-card p:last-child { margin-bottom: 0; }
+  .charter-card em {
+    font-style: italic;
+    color: var(--foreground);
+  }
+
+  /* === CTA === */
+  .cta {
+    position: relative;
+    padding: 112px 24px;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .cta-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
+  }
+  .cta-content {
+    position: relative; z-index: 10;
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+  }
+  .cta h2 {
+    font-size: clamp(32px, 4.5vw, 56px);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .cta-text {
+    font-size: 20px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-gold {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .btn-gold:hover { opacity: 0.9; }
+  .btn-outline {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+  .cta-footer {
+    margin-top: 32px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* === FOOTER === */
+  .footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.8);
+    margin-top: auto;
+  }
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .footer h3 {
+    font-size: 24px;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .footer h4 {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .footer p, .footer a {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+  }
+  .footer a { transition: color 0.2s; }
+  .footer a:hover { color: white; }
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .footer-contact { display: flex; flex-direction: column; gap: 8px; }
+  .footer-contact .gold { color: var(--gold); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 24px 0;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .navbar-links { display: none; }
+    .two-col-inner { grid-template-columns: 1fr; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .model-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .page-hero { min-height: 500px; }
+    .page-hero-content { padding: 90px 16px 40px; }
+    .nomination-table { font-size: 15px; }
+    .nomination-table th, .nomination-table td { padding: 10px 12px; }
+  }
+
+  @media (max-width: 375px) {
+    body { font-size: 16px; }
+  }
+
+  /* Focus */
+  *:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-brand">
+      <img src="brand/KarmYogLogoYellow.png" alt="KarmYog">
+      <span>KarmYog Vatika</span>
+    </a>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="sponsor.html">Sponsor</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="foundation.html">Foundation</a>
+      <a href="community.html" class="active">Community</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" aria-label="Hero">
+  <img class="page-hero-bg" src="images/sponsorship/community-commons-shabhaghar-apr05.jpeg"
+       alt="Community Commons Shabhaghar — the performing arts and gathering space at KarmYog Vatika"
+       loading="eager">
+  <div class="page-hero-gradient" aria-hidden="true"></div>
+  <div class="page-hero-content">
+    <div class="hero-top">
+      <h1>The Community</h1>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-subtitle">Who lives here. How they join. What binds them together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: WHO MAKES UP THE COMMUNITY -->
+<section class="community-cards" aria-label="Who Makes Up the Community">
+  <div class="community-cards-inner">
+    <p class="section-label" style="text-align:center">The People</p>
+    <h2>Who Makes Up the Community</h2>
+    <p class="community-cards-desc">Four groups come together on this campus — each with a distinct role, each essential to the ecosystem.</p>
+    <div class="cards-grid">
+      <div class="community-card">
+        <p class="community-card-icon">Learners</p>
+        <h3>Gunagrahis</h3>
+        <p>Young learners enrolled in the KarmYog GunaKul, ages 6 to 16. They live on campus in residential dormitories — immersed in a daily rhythm of discipline, creativity, reflection, and community life.</p>
+        <p>Separate Gunagrahi Awaas for boys and girls ensure dignity and safety. Each Awaas houses 12 learners.</p>
+        <p class="card-stat">12 beds per Awaas &middot; 36 per ashram &middot; 144 across campus</p>
+      </div>
+      <div class="community-card">
+        <p class="community-card-icon">Elders</p>
+        <h3>Swajans</h3>
+        <p>Elder residents, age 50 and above. These are not passive residents — they mentor, share stories, offer wisdom, and participate actively in the life of the campus. Swajan means "our own people."</p>
+        <p>Each Swajan lives in a dignified community home with lifetime residence — a place of belonging, not just shelter.</p>
+        <p class="card-stat">7 Swajan Grihas per ashram &middot; 28 across campus</p>
+      </div>
+      <div class="community-card">
+        <p class="community-card-icon">Visitors</p>
+        <h3>Visiting Acharyas &amp; Guests</h3>
+        <p>Scholars, Gurus, and institutional visitors who stay in Atithi Kutirs — guest accommodations designed for reflection and exchange. Their presence enriches the campus with fresh knowledge and perspective.</p>
+        <p>Values alignment is required. Not every guest is admitted — the institution ensures compatibility with the community's ethos.</p>
+      </div>
+      <div class="community-card">
+        <p class="community-card-icon">Supporters</p>
+        <h3>Sponsors</h3>
+        <p>Contributors who fund the construction and sustenance of the campus. Sponsors receive naming rights and nomination rights — the ability to nominate a participant for the community.</p>
+        <p>A sponsor may or may not be a participant themselves. The roles are distinct by design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- SECTION 2: HOW PARTICIPANTS JOIN -->
+<section class="two-col" style="background: white;" aria-label="How Participants Join">
+  <div class="two-col-inner">
+    <div class="two-col-image" style="order: -1;">
+      <img src="images/sponsorship/vatika-campus-entrance-apr05.jpeg"
+           alt="KarmYog Vatika campus entrance — the gateway to community life"
+           loading="lazy">
+    </div>
+    <div>
+      <p class="section-label">Admissions</p>
+      <h2>How Participants Join</h2>
+      <p><strong>GunaKul Admissions:</strong> Selection is based on curiosity, aptitude, discipline, attitude, family alignment, and institutional fit — not academic marks alone. The GunaKul seeks learners who will thrive in an immersive community, not just perform in exams.</p>
+      <p><strong>Swajan Admissions:</strong> Willingness to participate in community life, compatibility with other residents, dignity, and health suitability are the criteria. This is a community of active elders, not a care facility.</p>
+      <p><strong>Institutional Discretion:</strong> The institution reserves the right to decline admission without public explanation — this is a safeguard for community protection, exercised in good faith.</p>
+      <p><strong>Sponsor Nominations:</strong> Sponsors can nominate themselves, their children, their parents, or anyone they choose — subject to the admissions criteria above.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- SECTION 3: THE 40-30-30 MODEL -->
+<section class="dark-section" aria-label="The 40-30-30 Model">
+  <div class="dark-section-inner">
+    <p class="section-label" style="text-align:center">Economic Inclusion</p>
+    <h2>The 40-30-30 Model</h2>
+    <p class="dark-section-desc">This is not charity. It is the ethical design of the institution — a deliberate structure that ensures no deserving participant is excluded.</p>
+    <div class="model-grid">
+      <div class="model-card">
+        <p class="model-card-value">40%</p>
+        <p class="model-card-label">Self-Paying Participants</p>
+        <p class="model-card-desc">Pay regular monthly charges for food, maintenance, and utilities</p>
+      </div>
+      <div class="model-card">
+        <p class="model-card-value">30%</p>
+        <p class="model-card-label">Contributing Participants</p>
+        <p class="model-card-desc">Contribute what they can and support others in the community</p>
+      </div>
+      <div class="model-card">
+        <p class="model-card-value">30%</p>
+        <p class="model-card-label">Sponsored / Scholarship</p>
+        <p class="model-card-desc">Fully supported by the sponsorship ecosystem — zero financial barrier</p>
+      </div>
+    </div>
+    <p style="text-align:center; color: rgba(255,255,255,0.45); font-size: 15px; margin-top: 32px; line-height: 1.6;">Monthly charges for food, maintenance, and utilities are separate from the one-time sponsorship of spaces. Sponsorship builds the campus. Monthly charges sustain community life.</p>
+  </div>
+</section>
+
+<!-- SECTION 4: NOMINATION & SPONSORSHIP RIGHTS -->
+<section class="content-section" aria-label="Nomination and Sponsorship Rights">
+  <div class="content-section-inner">
+    <p class="section-label">Rights &amp; Responsibilities</p>
+    <h2>Nomination &amp; Sponsorship Rights</h2>
+    <p>A critical distinction: <strong>Sponsor is not the same as Participant.</strong> A sponsor funds a space. A participant lives in or uses that space. These roles may overlap, but they are designed to be separate.</p>
+
+    <table class="nomination-table">
+      <thead>
+        <tr>
+          <th>Sponsor Type</th>
+          <th>Nomination Right</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="nom-type">Swajan Griha Sponsor</td>
+          <td>Can nominate an elder (50+) for lifetime residence — including themselves</td>
+        </tr>
+        <tr>
+          <td class="nom-type">Gunagrahi Awaas Sponsor</td>
+          <td>First right of refusal on beds — can nominate their children (ages 6-16) or any learner</td>
+        </tr>
+        <tr>
+          <td class="nom-type">Self-Nomination</td>
+          <td>Sponsors aged 50+ can nominate themselves as Swajan residents</td>
+        </tr>
+        <tr>
+          <td class="nom-type">On Exit / Demise</td>
+          <td>Up to 50% refund of sponsorship, subject to replacement onboarding by the institution</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>All nominations are subject to the institution's admissions criteria. Sponsorship guarantees a right to nominate, not automatic admission.</p>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- SECTION 5: DAILY LIFE & COMMUNITY PRINCIPLES -->
+<section class="two-col" aria-label="Daily Life">
+  <div class="two-col-inner">
+    <div>
+      <p class="section-label">Living Together</p>
+      <h2>Daily Life &amp; Community Principles</h2>
+      <p>Life on the campus follows a rhythm — not rigid, but intentional. Reflection, participation, care for shared spaces, and the discipline of community living form the foundation of each day.</p>
+      <p>Community meals in the Bhojanalaya are central to campus life — rooted in health, simplicity, and the practice of shared living. Everyone eats together.</p>
+      <p>Everyone contributes. The elders offer wisdom, stories, and mentorship. The learners bring energy, curiosity, and digital fluency. Staff, visitors, and volunteers bring care and discipline. No one is merely a consumer of this community.</p>
+      <p>The campus operates under the tutelage of <strong>MahAcharyaJi</strong> and <strong>GunaMata</strong> — the institutional guardians who set the tone, resolve conflicts, and hold the community to its charter.</p>
+    </div>
+    <div class="two-col-image">
+      <img src="images/sponsorship/08-bhojanalaya-dining-interior.jpeg"
+           alt="Bhojanalaya community dining hall — where residents share meals together"
+           loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: SAFETY & SAFEGUARDING -->
+<section class="content-section alt-bg" aria-label="Safety and Safeguarding">
+  <div class="content-section-inner">
+    <p class="section-label">Protection</p>
+    <h2>Safety &amp; Safeguarding</h2>
+    <p>A community with children and elders demands the highest standards of protection. These are non-negotiable.</p>
+    <ul>
+      <li><strong>Zero tolerance for abuse of children</strong> — reporting mechanisms, mandatory background checks for all staff and long-term visitors, and designated safeguarding officers on campus at all times</li>
+      <li><strong>Elder protection</strong> — safeguards against exploitation, humiliation, and neglect. Every Swajan is treated with the dignity their years have earned</li>
+      <li><strong>Code of conduct</strong> — respect for all residents, no harassment, no substance abuse, no proselytizing. Violations lead to institutional action, including removal</li>
+      <li><strong>Technology discipline for learners</strong> — structured rules for phones, devices, and internet access. Technology serves learning; it does not replace it</li>
+    </ul>
+    <p>The institution maintains the right to enforce these standards without compromise. Community safety is not subject to negotiation.</p>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- SECTION 7: THE COMMUNITY CHARTER -->
+<section class="content-section" aria-label="The Community Charter">
+  <div class="content-section-inner">
+    <p class="section-label">Governance</p>
+    <h2>The Community Charter</h2>
+    <p>The Riverside Vatika Community Charter is the working constitution for residents, learners, sponsors, staff, visitors, and institutional participants. It covers admissions, daily conduct, rights and responsibilities, safeguarding, grievance redressal, and the principles that hold this community together.</p>
+    <div class="charter-card">
+      <p><em>"The Community Charter is a living document. It may be amended by the Institution in good faith, as the community grows and learns from its own experience. It is not a contract — it is a covenant."</em></p>
+      <p>The full charter is available on request. It is shared with every sponsor and participant before they join the community, in English, Hindi and Bengali.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" aria-label="Call to Action">
+  <img class="cta-bg" src="images/sponsorship/hero-riverside-panorama-apr05.jpeg"
+       alt="Panoramic view of KarmYog Vatika campus on the Ganges" loading="lazy">
+  <div class="cta-gradient" aria-hidden="true"></div>
+  <div class="cta-content">
+    <h2>Want to Be Part of This Community?</h2>
+    <p class="cta-text">Sponsor a space, nominate a participant, or simply learn more about how this living ecosystem works.</p>
+    <div class="cta-buttons">
+      <a href="sponsor.html" class="btn-gold">Sponsor a Space</a>
+      <a href="https://wa.me/919167719898?text=I%20would%20like%20to%20know%20more%20about%20the%20KarmYog%20Vatika%20community%20at%20RangaMati"
+         target="_blank" rel="noopener noreferrer" class="btn-outline">WhatsApp Us</a>
+    </div>
+    <p class="cta-footer">KarmYog for 21st Century Foundation &middot; IIT Kharagpur Research Park, Kolkata</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <h3>KarmYog Vatika</h3>
+      <p>at RangaMati by the Ganges — কর্মযোগ বাটিকা. An intergenerational campus manifesting the principles of KarmYog for the 21st Century.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="sponsor.html">Sponsor a Space</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="foundation.html">Foundation</a>
+        <a href="community.html">Community</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="footer-contact">
+        <p>KarmYog for 21st Century Foundation</p>
+        <p>401, IIT Kharagpur Research Park</p>
+        <p>Newtown, Kolkata 700135</p>
+        <p style="margin-top:12px"><a href="mailto:reachus@ky21c.org" class="gold">reachus@ky21c.org</a></p>
+        <p><a href="tel:+919167719898">+91 9167719898</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>This is not a real estate project. This is a living ecosystem.</p>
+    <p style="margin-top:4px">&copy; 2026 KarmYog for 21st Century Foundation. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
