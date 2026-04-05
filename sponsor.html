@@ -399,8 +399,21 @@
   .detail-card {
     border: 1px solid rgba(46,83,57,0.12);
     border-radius: 8px;
-    padding: 32px;
+    overflow: hidden;
     background: white;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+  }
+  .detail-card.reverse { direction: rtl; }
+  .detail-card.reverse > * { direction: ltr; }
+  .detail-card-image {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    object-fit: cover;
+  }
+  .detail-card-body {
+    padding: 32px;
   }
   .detail-card-header {
     display: flex;
@@ -491,6 +504,9 @@
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
+    .detail-card { grid-template-columns: 1fr; }
+    .detail-card.reverse { direction: ltr; }
+    .detail-card-image { min-height: 200px; max-height: 250px; }
     .detail-card-header { flex-direction: column; gap: 8px; }
     .navbar-links { display: none; }
     .rights-grid { grid-template-columns: 1fr; }
@@ -655,136 +671,157 @@
 
       <!-- Gunagrahi Awaas -->
       <div class="detail-card">
-        <div class="detail-card-header">
-          <div>
-            <h3>Gunagrahi Awaas</h3>
-            <p class="detail-subtitle">Residential Dormitory for GunaKul Learners</p>
+        <img class="detail-card-image" src="images/sponsorship/03-gunakul-dormitory-interior.jpeg" alt="GunaKul dormitory interior" loading="lazy">
+        <div class="detail-card-body">
+          <div class="detail-card-header">
+            <div>
+              <h3>Gunagrahi Awaas</h3>
+              <p class="detail-subtitle">Residential Dormitory for GunaKul Learners</p>
+            </div>
+            <div class="detail-price">&#8377;51 Lakhs</div>
           </div>
-          <div class="detail-price">&#8377;51 Lakhs</div>
+          <p class="detail-desc">Each Gunagrahi Awaas houses 36 young learners in the GunaKul programme — the heart of the intergenerational promise. Children learn alongside elders in a biophilic campus designed for daily practice, study, and growth.</p>
+          <ul class="detail-features">
+            <li>Naming rights on entrance plaque in English, Hindi and Bengali</li>
+            <li>3 per ashram, <strong>12 available</strong> across campus</li>
+            <li>First right of refusal to sponsor individual beds (12 beds at &#8377;2L each)</li>
+            <li>Full bed sponsorship add-on: &#8377;24 Lakhs additional (all 12 beds)</li>
+            <li><strong>Total for Awaas + all beds: &#8377;75 Lakhs</strong></li>
+          </ul>
+          <p class="detail-naming">Example: &ldquo;Mata Ananya Devi Gunagrahi Awaas&rdquo;</p>
         </div>
-        <p class="detail-desc">Each Gunagrahi Awaas houses 36 young learners in the GunaKul programme — the heart of the intergenerational promise. Children learn alongside elders in a biophilic campus designed for daily practice, study, and growth.</p>
-        <ul class="detail-features">
-          <li>Naming rights on entrance plaque in English, Hindi and Bengali</li>
-          <li>3 per ashram, <strong>12 available</strong> across campus</li>
-          <li>First right of refusal to sponsor individual beds (12 beds at &#8377;2L each)</li>
-          <li>Full bed sponsorship add-on: &#8377;24 Lakhs additional (all 12 beds)</li>
-          <li><strong>Total for Awaas + all beds: &#8377;75 Lakhs</strong></li>
-        </ul>
-        <p class="detail-naming">Example: &ldquo;Mata Ananya Devi Gunagrahi Awaas&rdquo;</p>
       </div>
 
       <!-- Swajan Griha -->
-      <div class="detail-card">
-        <div class="detail-card-header">
-          <div>
-            <h3>Swajan Griha</h3>
-            <p class="detail-subtitle">Private Elder Residence</p>
+      <div class="detail-card reverse">
+        <img class="detail-card-image" src="images/sponsorship/swajan-griha-entrance-apr05.jpeg" alt="Swajan Griha entrance with Pitrideb Aditya plaque" loading="lazy">
+        <div class="detail-card-body">
+          <div class="detail-card-header">
+            <div>
+              <h3>Swajan Griha</h3>
+              <p class="detail-subtitle">Private Elder Residence</p>
+            </div>
+            <div class="detail-price">&#8377;21 Lakhs</div>
           </div>
-          <div class="detail-price">&#8377;21 Lakhs</div>
+          <p class="detail-desc">A dignified private residence for elders on the banks of the Ganges. Each Swajan Griha is a home designed for lifetime community living — surrounded by purpose, youth, and the sacred river.</p>
+          <ul class="detail-features">
+            <li>Naming rights on entrance plaque, permanent in English, Hindi and Bengali</li>
+            <li>7 per ashram, <strong>28 available</strong> across campus</li>
+            <li>Mandatory &#8377;4 Lakh payment by participant (Swajan) for living rights</li>
+            <li>If the Swajan chooses not to take back the &#8377;4L, <strong>the bed is permanently named after them</strong> — future participants never pay again</li>
+            <li>2 beds per Griha, each separately sponsorable at &#8377;4 Lakhs</li>
+            <li><strong>Full Swajan package (Griha + both beds): &#8377;29 Lakhs</strong></li>
+          </ul>
+          <p class="detail-naming">Example: &ldquo;Pitrideb Aditya Swajan Griha&rdquo;</p>
         </div>
-        <p class="detail-desc">A dignified private residence for elders on the banks of the Ganges. Each Swajan Griha is a home designed for lifetime community living — surrounded by purpose, youth, and the sacred river.</p>
-        <ul class="detail-features">
-          <li>Naming rights on entrance plaque, permanent in English, Hindi and Bengali</li>
-          <li>7 per ashram, <strong>28 available</strong> across campus</li>
-          <li>Mandatory &#8377;4 Lakh payment by participant (Swajan) for living rights</li>
-          <li>If the Swajan chooses not to take back the &#8377;4L, <strong>the bed is permanently named after them</strong> — future participants never pay again</li>
-          <li>2 beds per Griha, each separately sponsorable at &#8377;4 Lakhs</li>
-          <li><strong>Full Swajan package (Griha + both beds): &#8377;29 Lakhs</strong></li>
-        </ul>
-        <p class="detail-naming">Example: &ldquo;Pitrideb Aditya Swajan Griha&rdquo;</p>
       </div>
 
       <!-- Atithi Kutir -->
       <div class="detail-card">
-        <div class="detail-card-header">
-          <div>
-            <h3>Atithi Kutir</h3>
-            <p class="detail-subtitle">Guest Cottage for Visiting Acharyas, Gurus, and Institutional Guests</p>
+        <img class="detail-card-image" src="images/sponsorship/06-atithi-kutir-named-plaque.jpeg" alt="Atithi Kutir with dedication plaque" loading="lazy">
+        <div class="detail-card-body">
+          <div class="detail-card-header">
+            <div>
+              <h3>Atithi Kutir</h3>
+              <p class="detail-subtitle">Guest Cottage for Visiting Acharyas, Gurus, and Institutional Guests</p>
+            </div>
+            <div class="detail-price">&#8377;21 Lakhs</div>
           </div>
-          <div class="detail-price">&#8377;21 Lakhs</div>
+          <p class="detail-desc">A riverside retreat for visiting Acharyas, scholars, and spiritual seekers. The Atithi Kutir programme is managed by KYF / RangaMati Vatika Trust — the sponsor does not have personal use rights.</p>
+          <ul class="detail-features">
+            <li>Naming rights on entrance plaque, permanent dedication</li>
+            <li>3 per ashram, <strong>12 available</strong> across campus</li>
+            <li>KYF / RV Trust controls operations, guest selection, scheduling</li>
+            <li>2 beds per Kutir, each separately sponsorable at &#8377;4 Lakhs</li>
+            <li><strong>Full Atithi package (Kutir + both beds): &#8377;29 Lakhs</strong></li>
+          </ul>
+          <p class="detail-naming">Example: &ldquo;Bhrata Aruneshwar Atithi Kutir&rdquo;</p>
         </div>
-        <p class="detail-desc">A riverside retreat for visiting Acharyas, scholars, and spiritual seekers. The Atithi Kutir programme is managed by KYF / RangaMati Vatika Trust — the sponsor does not have personal use rights.</p>
-        <ul class="detail-features">
-          <li>Naming rights on entrance plaque, permanent dedication</li>
-          <li>3 per ashram, <strong>12 available</strong> across campus</li>
-          <li>KYF / RV Trust controls operations, guest selection, scheduling</li>
-          <li>2 beds per Kutir, each separately sponsorable at &#8377;4 Lakhs</li>
-          <li><strong>Full Atithi package (Kutir + both beds): &#8377;29 Lakhs</strong></li>
-        </ul>
-        <p class="detail-naming">Example: &ldquo;Bhrata Aruneshwar Atithi Kutir&rdquo;</p>
       </div>
 
       <!-- Bhojanalaya -->
-      <div class="detail-card">
-        <div class="detail-card-header">
-          <div>
-            <h3>Bhojanalaya</h3>
-            <p class="detail-subtitle">Multipurpose Dining Hall &amp; Performing Arts Center</p>
+      <div class="detail-card reverse">
+        <img class="detail-card-image" src="images/sponsorship/08-bhojanalaya-dining-interior.jpeg" alt="Bhojanalaya community dining hall interior" loading="lazy">
+        <div class="detail-card-body">
+          <div class="detail-card-header">
+            <div>
+              <h3>Bhojanalaya</h3>
+              <p class="detail-subtitle">Multipurpose Dining Hall &amp; Performing Arts Center</p>
+            </div>
+            <div class="detail-price">&#8377;11 Lakhs</div>
           </div>
-          <div class="detail-price">&#8377;11 Lakhs</div>
+          <p class="detail-desc">The communal dining hall of each ashram — farm-to-table meals rooted in Ayurvedic wisdom. Where elders and learners break bread together every day, nourished by the campus gardens.</p>
+          <ul class="detail-features">
+            <li>Naming rights on entrance plaque with chosen name and honorific</li>
+            <li>1 per ashram, <strong>4 available</strong> across campus</li>
+            <li>Visible to every resident and visitor dining in the ashram</li>
+          </ul>
+          <p class="detail-naming">Example: &ldquo;Adorini Sukanya Bhojanalaya&rdquo;</p>
         </div>
-        <p class="detail-desc">The communal dining hall of each ashram — farm-to-table meals rooted in Ayurvedic wisdom. Where elders and learners break bread together every day, nourished by the campus gardens.</p>
-        <ul class="detail-features">
-          <li>Naming rights on entrance plaque with chosen name and honorific</li>
-          <li>1 per ashram, <strong>4 available</strong> across campus</li>
-          <li>Visible to every resident and visitor dining in the ashram</li>
-        </ul>
-        <p class="detail-naming">Example: &ldquo;Adorini Sukanya Bhojanalaya&rdquo;</p>
       </div>
 
       <!-- Biophilic Commons -->
       <div class="detail-card">
-        <div class="detail-card-header">
-          <div>
-            <h3>Biophilic Commons (Shabhaghar)</h3>
-            <p class="detail-subtitle">Sit-out Deck &amp; Community Event Space</p>
+        <img class="detail-card-image" src="images/sponsorship/community-commons-shabhaghar-apr05.jpeg" alt="Community Commons Shabhaghar — performing arts and gathering space" loading="lazy">
+        <div class="detail-card-body">
+          <div class="detail-card-header">
+            <div>
+              <h3>Biophilic Commons (Shabhaghar)</h3>
+              <p class="detail-subtitle">Sit-out Deck &amp; Community Event Space</p>
+            </div>
+            <div class="detail-price">&#8377;11 Lakhs</div>
           </div>
-          <div class="detail-price">&#8377;11 Lakhs</div>
+          <p class="detail-desc">The intellectual heart of each ashram — performing arts centre, science lab, and intergenerational learning space combined. Where generations collide, create, and learn from each other.</p>
+          <ul class="detail-features">
+            <li>Naming rights on entrance plaque, permanent dedication</li>
+            <li>1 per ashram, <strong>4 available</strong> across campus</li>
+            <li>Primary community space for all ashram gatherings</li>
+          </ul>
+          <p class="detail-naming">Example: &ldquo;Mahatma Aryan Dev Shabhaghar&rdquo;</p>
         </div>
-        <p class="detail-desc">The intellectual heart of each ashram — performing arts centre, science lab, and intergenerational learning space combined. Where generations collide, create, and learn from each other.</p>
-        <ul class="detail-features">
-          <li>Naming rights on entrance plaque, permanent dedication</li>
-          <li>1 per ashram, <strong>4 available</strong> across campus</li>
-          <li>Primary community space for all ashram gatherings</li>
-        </ul>
-        <p class="detail-naming">Example: &ldquo;Mahatma Aryan Dev Shabhaghar&rdquo;</p>
       </div>
 
       <!-- Biophilic Vatika -->
-      <div class="detail-card">
-        <div class="detail-card-header">
-          <div>
-            <h3>Biophilic Vatika</h3>
-            <p class="detail-subtitle">Community Learning Garden</p>
+      <div class="detail-card reverse">
+        <img class="detail-card-image" src="images/sponsorship/vatika-campus-entrance-apr05.jpeg" alt="Biophilic Vatika campus entrance with gardens" loading="lazy">
+        <div class="detail-card-body">
+          <div class="detail-card-header">
+            <div>
+              <h3>Biophilic Vatika</h3>
+              <p class="detail-subtitle">Community Learning Garden</p>
+            </div>
+            <div class="detail-price">&#8377;7 Lakhs</div>
           </div>
-          <div class="detail-price">&#8377;7 Lakhs</div>
+          <p class="detail-desc">A landscaped garden with native flora — a living memorial in the campus grounds. Your name among the trees, visible to every visitor who walks these paths.</p>
+          <ul class="detail-features">
+            <li>Naming rights on garden entrance plaque, permanent dedication</li>
+            <li>1 per ashram, <strong>4 available</strong> across campus</li>
+            <li>Living, growing memorial that evolves with the campus</li>
+          </ul>
+          <p class="detail-naming">Example: &ldquo;Sant Varuneshwar Vatika&rdquo;</p>
         </div>
-        <p class="detail-desc">A landscaped garden with native flora — a living memorial in the campus grounds. Your name among the trees, visible to every visitor who walks these paths.</p>
-        <ul class="detail-features">
-          <li>Naming rights on garden entrance plaque, permanent dedication</li>
-          <li>1 per ashram, <strong>4 available</strong> across campus</li>
-          <li>Living, growing memorial that evolves with the campus</li>
-        </ul>
-        <p class="detail-naming">Example: &ldquo;Sant Varuneshwar Vatika&rdquo;</p>
       </div>
 
       <!-- Bed Dedications -->
       <div class="detail-card">
-        <div class="detail-card-header">
-          <div>
-            <h3>Bed-Level Dedications</h3>
-            <p class="detail-subtitle">Individual Bed Naming — The Most Intimate Sponsorship</p>
+        <img class="detail-card-image" src="images/sponsorship/10-swajan-griha-bedroom-interior.jpeg" alt="Swajan Griha bedroom interior with dedication plaque at bedside" loading="lazy">
+        <div class="detail-card-body">
+          <div class="detail-card-header">
+            <div>
+              <h3>Bed-Level Dedications</h3>
+              <p class="detail-subtitle">Individual Bed Naming — The Most Intimate Sponsorship</p>
+            </div>
+            <div class="detail-price">&#8377;2–4 Lakhs</div>
           </div>
-          <div class="detail-price">&#8377;2–4 Lakhs</div>
+          <p class="detail-desc">Name a single bed — a personal plaque at the bedside, seen by the person who sleeps there. The most intimate form of sponsorship.</p>
+          <ul class="detail-features">
+            <li><strong>GunaKul Beds:</strong> &#8377;2 Lakhs — 36 per ashram, 144 total. Awaas sponsor has first right of refusal.</li>
+            <li><strong>Swajan Beds:</strong> &#8377;4 Lakhs — 14 per ashram, 56 total. Can be sponsored by Griha sponsor or independently.</li>
+            <li><strong>Atithi Beds:</strong> &#8377;4 Lakhs — 6 per ashram, 24 total. Managed by KYF / RV Trust.</li>
+            <li><strong>Total: 224 bed dedications</strong> across 4 ashrams</li>
+          </ul>
+          <p class="detail-naming">Example: &ldquo;In loving memory of: Tejomoy Arnab&rdquo;</p>
         </div>
-        <p class="detail-desc">Name a single bed — a personal plaque at the bedside, seen by the person who sleeps there. The most intimate form of sponsorship.</p>
-        <ul class="detail-features">
-          <li><strong>GunaKul Beds:</strong> &#8377;2 Lakhs — 36 per ashram, 144 total. Awaas sponsor has first right of refusal.</li>
-          <li><strong>Swajan Beds:</strong> &#8377;4 Lakhs — 14 per ashram, 56 total. Can be sponsored by Griha sponsor or independently.</li>
-          <li><strong>Atithi Beds:</strong> &#8377;4 Lakhs — 6 per ashram, 24 total. Managed by KYF / RV Trust.</li>
-          <li><strong>Total: 224 bed dedications</strong> across 4 ashrams</li>
-        </ul>
-        <p class="detail-naming">Example: &ldquo;In loving memory of: Tejomoy Arnab&rdquo;</p>
       </div>
 
     </div>
