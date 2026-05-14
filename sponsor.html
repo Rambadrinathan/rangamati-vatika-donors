@@ -1214,6 +1214,10 @@
   let currentSource = null;
   let isRecording = false;
   let liveReady = false;
+  let currentInputBubble = null;
+  let currentOutputBubble = null;
+  let accInputText = '';
+  let accOutputText = '';
 
   function b64ToBytes(b64) {
     const bin = atob(b64); const a = new Uint8Array(bin.length);
@@ -1320,9 +1324,25 @@
         }
       }
 
-      if (sc.inputTranscription?.text) { addMessage(sc.inputTranscription.text, 'user'); chatHistory.push({ role: 'user', content: sc.inputTranscription.text }); }
-      if (sc.outputTranscription?.text) { addMessage(sc.outputTranscription.text, 'bot'); chatHistory.push({ role: 'assistant', content: sc.outputTranscription.text }); }
-      if (sc.turnComplete) { setTimeout(() => { if (voiceState === 'speaking' && !isRecording) setVoiceUI('idle'); }, 200); }
+      if (sc.inputTranscription?.text) {
+        accInputText += sc.inputTranscription.text;
+        if (!currentInputBubble) { currentInputBubble = addMessage(accInputText, 'user'); }
+        else { currentInputBubble.textContent = accInputText; }
+      }
+      if (sc.outputTranscription?.text) {
+        accOutputText += sc.outputTranscription.text;
+        if (!currentOutputBubble) { currentOutputBubble = addMessage(accOutputText, 'bot'); }
+        else { currentOutputBubble.textContent = accOutputText; }
+        const msgs = document.getElementById('ppMessages');
+        if (msgs) msgs.scrollTop = msgs.scrollHeight;
+      }
+      if (sc.turnComplete) {
+        if (accInputText) chatHistory.push({ role: 'user', content: accInputText });
+        if (accOutputText) chatHistory.push({ role: 'assistant', content: accOutputText });
+        accInputText = ''; accOutputText = '';
+        currentInputBubble = null; currentOutputBubble = null;
+        setTimeout(() => { if (voiceState === 'speaking' && !isRecording) setVoiceUI('idle'); }, 200);
+      }
     } catch(e) { console.warn('[Priya] msg parse error:', e); }
   }
 
@@ -1348,6 +1368,8 @@
     if (!liveReady) return;
     isRecording = true;
     stopPlay();
+    accInputText = ''; accOutputText = '';
+    currentInputBubble = null; currentOutputBubble = null;
     setVoiceUI('listening');
   }
 
