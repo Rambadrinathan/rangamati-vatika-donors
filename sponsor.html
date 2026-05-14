@@ -1266,12 +1266,14 @@
       if (!res.ok) throw new Error('Token error');
       const data = await res.json();
 
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      console.log('[Priya] AudioContext sampleRate:', audioCtx.sampleRate);
+      console.log('[Priya] Connecting WebSocket...');
       ws = new WebSocket(data.websocketUrl);
-      ws.onopen = () => { startMic(); setVoiceUI('listening'); };
+      ws.onopen = () => { console.log('[Priya] WebSocket open'); startMic(); setVoiceUI('listening'); };
       ws.onmessage = handleWsMessage;
-      ws.onclose = () => { cleanupVoice(); setVoiceUI('idle'); };
-      ws.onerror = () => { cleanupVoice(); setVoiceUI('idle'); addMessage('Voice connection failed. Try again.', 'bot'); };
+      ws.onclose = (e) => { console.log('[Priya] WebSocket closed:', e.code, e.reason, e.wasClean); cleanupVoice(); setVoiceUI('idle'); };
+      ws.onerror = (e) => { console.error('[Priya] WebSocket error:', e); cleanupVoice(); setVoiceUI('idle'); addMessage('Voice connection failed. Try again.', 'bot'); };
     } catch(e) {
       setVoiceUI('idle');
       addMessage('Could not start voice. Please use text chat.', 'bot');
@@ -1281,6 +1283,7 @@
   function handleWsMessage(event) {
     try {
       const msg = JSON.parse(event.data);
+      console.log('[Priya] WS msg keys:', Object.keys(msg?.serverContent || msg).join(','));
       const parts = msg?.serverContent?.modelTurn?.parts;
       if (parts) {
         for (const part of parts) {
