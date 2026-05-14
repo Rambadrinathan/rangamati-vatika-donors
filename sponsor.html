@@ -1266,9 +1266,20 @@
       ws.onopen = () => {
         console.log('[Priya] WS open, sending setup...');
         ws.send(JSON.stringify({ setup: {} }));
-        // Don't init mic yet — wait for setupComplete in handleWsMsg
+        // Timeout: if setupComplete doesn't arrive in 8s, force ready
+        setTimeout(() => {
+          if (ws && ws.readyState === WebSocket.OPEN && !liveReady) {
+            console.warn('[Priya] setupComplete timeout — forcing ready');
+            liveReady = true;
+            initMic();
+            setVoiceUI('idle');
+          }
+        }, 8000);
       };
-      ws.onmessage = handleWsMsg;
+      ws.onmessage = (event) => {
+        console.log('[Priya] RAW WS msg:', typeof event.data === 'string' ? event.data.substring(0, 200) : 'blob');
+        handleWsMsg(event);
+      };
       ws.onclose = (e) => { console.log('[Priya] WS closed:', e.code, e.reason); cleanupVoice(); setVoiceUI('idle'); };
       ws.onerror = () => { cleanupVoice(); setVoiceUI('idle'); addMessage('Voice connection failed.', 'bot'); };
     } catch(e) {

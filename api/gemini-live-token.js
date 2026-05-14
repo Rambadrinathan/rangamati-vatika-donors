@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   if (!apiKey) {
     return res.status(500).json({ error: 'Gemini Live not configured' });
   }
+  console.log('[Priya token] key prefix:', apiKey.substring(0, 10), 'key length:', apiKey.length);
 
   const { lang } = req.body || {};
   const langLine = lang === 'bn'
