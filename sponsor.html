@@ -1289,9 +1289,12 @@
     }
   }
 
-  function handleWsMsg(event) {
+  async function handleWsMsg(event) {
     try {
-      const raw = typeof event.data === 'string' ? event.data : '';
+      let raw = '';
+      if (typeof event.data === 'string') { raw = event.data; }
+      else if (event.data instanceof Blob) { raw = await event.data.text(); }
+      else if (event.data instanceof ArrayBuffer) { raw = new TextDecoder().decode(event.data); }
       if (!raw) return;
       const msg = JSON.parse(raw);
 
@@ -1331,7 +1334,7 @@
       micProcessor.onaudioprocess = (e) => {
         if (!isRecording || !ws || ws.readyState !== WebSocket.OPEN) return;
         const pcm = downsample16(e.inputBuffer.getChannelData(0), audioCtx.sampleRate);
-        ws.send(JSON.stringify({ realtimeInput: { mediaChunks: [{ mimeType: 'audio/pcm;rate=16000', data: bytesToB64(pcm) }] } }));
+        ws.send(JSON.stringify({ realtimeInput: { audio: { mimeType: 'audio/pcm;rate=16000', data: bytesToB64(pcm) } } }));
       };
       micSource.connect(micProcessor);
       micProcessor.connect(audioCtx.destination);
