@@ -1237,19 +1237,35 @@
     const buf = ctx.createBuffer(1, pcm.length, 24000), ch = buf.getChannelData(0);
     for (let i = 0; i < pcm.length; i++) ch[i] = pcm[i] / 0x8000; return buf;
   }
-  function playNext() {
-    if (!audioQueue.length) { isPlayingAudio = false; if (!isRecording) setVoiceUI('idle'); return; }
+  let playChain = Promise.resolve();
+  let activeSources = new Set();
+  let audioQueueLen = 0;
+
+  function enqueueAudio(b64) {
+    if (!audioCtx) return;
+    audioQueueLen++;
     isPlayingAudio = true;
-    const buf = audioQueue.shift();
-    currentSource = audioCtx.createBufferSource();
-    currentSource.buffer = buf;
-    currentSource.connect(audioCtx.destination);
-    currentSource.onended = playNext;
-    currentSource.start();
+    setVoiceUI('speaking');
+    playChain = playChain.then(() => new Promise(resolve => {
+      const source = audioCtx.createBufferSource();
+      activeSources.add(source);
+      source.buffer = pcm24kBuf(audioCtx, b64);
+      source.connect(audioCtx.destination);
+      source.onended = () => {
+        activeSources.delete(source);
+        audioQueueLen--;
+        if (audioQueueLen <= 0) { isPlayingAudio = false; if (!isRecording) setVoiceUI('idle'); }
+        resolve();
+      };
+      source.start();
+    })).catch(() => {});
   }
+  function playNext() {} // kept for compat
   function stopPlay() {
-    audioQueue = []; isPlayingAudio = false;
-    if (currentSource) { try { currentSource.stop(); } catch(e){} currentSource = null; }
+    audioQueueLen = 0; isPlayingAudio = false;
+    playChain = Promise.resolve();
+    for (const s of activeSources) { try { s.stop(); } catch(e){} }
+    activeSources.clear();
   }
 
   async function connectGeminiLive() {
@@ -1317,22 +1333,18 @@
 
       const parts = sc.modelTurn?.parts || [];
       for (const p of parts) {
-        if (p.inlineData?.data) {
-          setVoiceUI('speaking');
-          audioQueue.push(pcm24kBuf(audioCtx, p.inlineData.data));
-          if (!isPlayingAudio) playNext();
-        }
+        if (p.inlineData?.data) enqueueAudio(p.inlineData.data);
       }
 
       if (sc.inputTranscription?.text) {
-        accInputText += sc.inputTranscription.text;
+        accInputText = (accInputText + ' ' + sc.inputTranscription.text).trim();
         if (!currentInputBubble) { currentInputBubble = addMessage(accInputText, 'user'); }
         else { currentInputBubble.textContent = accInputText; }
       }
       if (sc.outputTranscription?.text) {
-        accOutputText += sc.outputTranscription.text;
+        accOutputText = (accOutputText + ' ' + sc.outputTranscription.text).trim();
         if (!currentOutputBubble) { currentOutputBubble = addMessage(accOutputText, 'bot'); }
-        else { currentOutputBubble.textContent = accOutputText; }
+        else { currentOutputBubble.innerHTML = renderMarkdown(accOutputText); }
         const msgs = document.getElementById('ppMessages');
         if (msgs) msgs.scrollTop = msgs.scrollHeight;
       }
