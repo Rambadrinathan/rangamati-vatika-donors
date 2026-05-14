@@ -38,7 +38,7 @@ Key facts you know:
 
 If unsure about something, say "Let me connect you with Ram ji for accurate details."`;
 
-  const LIVE_MODEL = process.env.GEMINI_LIVE_MODEL || 'gemini-2.0-flash-live-001';
+  const LIVE_MODEL = process.env.GEMINI_LIVE_MODEL || 'gemini-3.1-flash-live-preview';
 
   const now = Date.now();
   const expire_time = new Date(now + 30 * 60 * 1000).toISOString();
