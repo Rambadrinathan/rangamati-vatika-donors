@@ -1184,114 +1184,157 @@
 
     if (state === 'idle') {
       voiceAction.innerHTML = '🎙️';
-      voiceLabel.textContent = 'Tap to speak';
+      voiceLabel.textContent = 'Tap to start voice';
       voiceLabel.className = 'pp-voice-label idle-label';
     } else if (state === 'listening') {
       voiceAction.innerHTML = '⏹';
-      voiceLabel.textContent = '🔴 Listening... tap when done';
+      voiceLabel.textContent = 'Listening... just speak naturally';
       voiceLabel.className = 'pp-voice-label recording-label';
     } else if (state === 'thinking') {
-      voiceAction.innerHTML = '<img src="brand/priya.jpg" alt="Priya thinking">';
-      voiceLabel.textContent = 'Priya is thinking...';
+      voiceAction.innerHTML = '<img src="brand/priya.jpg" alt="Priya">';
+      voiceLabel.textContent = 'Connecting to Priya...';
       voiceLabel.className = 'pp-voice-label thinking-label';
     } else if (state === 'speaking') {
-      voiceAction.innerHTML = '<img src="brand/priya.jpg" alt="Priya speaking">';
+      voiceAction.innerHTML = '<img src="brand/priya.jpg" alt="Priya">';
       voiceLabel.textContent = 'Priya is speaking... tap to interrupt';
       voiceLabel.className = 'pp-voice-label speaking-label';
     }
   }
 
-  // === MIC HANDLER ===
-  function handleMic() {
-    if (voiceState === 'idle') startListening();
-    else if (voiceState === 'listening') stopListening();
-    else if (voiceState === 'speaking') { stopAudio(); startListening(); }
+  // === GEMINI LIVE VOICE (real-time bidirectional) ===
+  let ws = null;
+  let audioCtx = null;
+  let micStream = null;
+  let micProcessor = null;
+  let audioQueue = [];
+  let isPlayingAudio = false;
+  let currentSource = null;
+
+  function base64ToBytes(b64) {
+    const bin = atob(b64);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+  function bytesToBase64(bytes) {
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  }
+  function downsampleToPcm16(input, inputRate) {
+    const ratio = inputRate / 16000;
+    const length = Math.floor(input.length / ratio);
+    const out = new Int16Array(length);
+    for (let i = 0; i < length; i++) {
+      const s = Math.max(-1, Math.min(1, input[Math.floor(i * ratio)] || 0));
+      out[i] = s < 0 ? s * 0x8000 : s * 0x7fff;
+    }
+    return new Uint8Array(out.buffer);
+  }
+  function pcm24kToBuffer(ctx, b64) {
+    const bytes = base64ToBytes(b64);
+    const pcm = new Int16Array(bytes.buffer, bytes.byteOffset, Math.floor(bytes.byteLength / 2));
+    const buf = ctx.createBuffer(1, pcm.length, 24000);
+    const ch = buf.getChannelData(0);
+    for (let i = 0; i < pcm.length; i++) ch[i] = pcm[i] / 0x8000;
+    return buf;
+  }
+  function playNextChunk() {
+    if (audioQueue.length === 0) { isPlayingAudio = false; return; }
+    isPlayingAudio = true;
+    const buf = audioQueue.shift();
+    currentSource = audioCtx.createBufferSource();
+    currentSource.buffer = buf;
+    currentSource.connect(audioCtx.destination);
+    currentSource.onended = playNextChunk;
+    currentSource.start();
+  }
+  function stopPlayback() {
+    audioQueue = [];
+    isPlayingAudio = false;
+    if (currentSource) { try { currentSource.stop(); } catch(e){} currentSource = null; }
   }
 
-  function startListening() {
-    if (!SpeechRecognition) return;
-    recognition = new SpeechRecognition();
-    recognition.lang = langMap[voiceLang].recognition;
-    recognition.interimResults = false;
-    recognition.continuous = true; // keeps listening until user taps stop
-    let fullTranscript = '';
-
-    recognition.onstart = () => setVoiceUI('listening');
-    recognition.onresult = (event) => {
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal) fullTranscript += event.results[i][0].transcript + ' ';
-      }
-    };
-    recognition.onend = () => {
-      const text = fullTranscript.trim();
-      if (text) {
-        addMessage(text, 'user');
-        chatHistory.push({ role: 'user', content: text });
-        processVoiceInput(text);
-      } else {
-        setVoiceUI('idle');
-      }
-    };
-    recognition.onerror = () => setVoiceUI('idle');
-    recognition.start();
-  }
-
-  function stopListening() {
-    if (recognition) recognition.stop();
-  }
-
-  // === VOICE PROCESSING (uses chat space for transcription) ===
-  async function processVoiceInput(text) {
+  async function connectGeminiLive() {
     setVoiceUI('thinking');
-    const typing = addMessage('Priya is thinking...', 'typing');
-
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch('/api/gemini-live-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          history: chatHistory.slice(-10),
-          systemSuffix: langMap[voiceLang].suffix,
-        }),
+        body: JSON.stringify({ lang: voiceLang }),
       });
-      typing.remove();
-      if (!res.ok) throw new Error('API error');
+      if (!res.ok) throw new Error('Token error');
       const data = await res.json();
 
-      // Show reply in chat
-      addMessage(data.reply, 'bot');
-      chatHistory.push({ role: 'assistant', content: data.reply });
-
-      // Speak reply
-      setVoiceUI('speaking');
-      const ttsRes = await fetch('/api/tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: data.reply, lang: langMap[voiceLang].tts }),
-      });
-      if (ttsRes.ok) {
-        const blob = await ttsRes.blob();
-        const url = URL.createObjectURL(blob);
-        currentAudio = new Audio(url);
-        currentAudio.onended = () => { URL.revokeObjectURL(url); currentAudio = null; setVoiceUI('idle'); };
-        currentAudio.onerror = () => { URL.revokeObjectURL(url); currentAudio = null; setVoiceUI('idle'); };
-        await currentAudio.play();
-      } else {
-        setVoiceUI('idle');
-      }
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
+      ws = new WebSocket(data.websocketUrl);
+      ws.onopen = () => { startMic(); setVoiceUI('listening'); };
+      ws.onmessage = handleWsMessage;
+      ws.onclose = () => { cleanupVoice(); setVoiceUI('idle'); };
+      ws.onerror = () => { cleanupVoice(); setVoiceUI('idle'); addMessage('Voice connection failed. Try again.', 'bot'); };
     } catch(e) {
-      typing.remove();
-      addMessage('I apologize, something went wrong. Please try again.', 'bot');
       setVoiceUI('idle');
+      addMessage('Could not start voice. Please use text chat.', 'bot');
     }
   }
 
-  function stopAudio() {
-    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
-    window.speechSynthesis?.cancel();
-    setVoiceUI('idle');
+  function handleWsMessage(event) {
+    try {
+      const msg = JSON.parse(event.data);
+      const parts = msg?.serverContent?.modelTurn?.parts;
+      if (parts) {
+        for (const part of parts) {
+          if (part.inlineData?.data) {
+            setVoiceUI('speaking');
+            audioQueue.push(pcm24kToBuffer(audioCtx, part.inlineData.data));
+            if (!isPlayingAudio) playNextChunk();
+          }
+        }
+      }
+      const inT = msg?.serverContent?.inputTranscription?.text;
+      const outT = msg?.serverContent?.outputTranscription?.text;
+      if (inT) { addMessage(inT, 'user'); chatHistory.push({ role: 'user', content: inT }); }
+      if (outT) { addMessage(outT, 'bot'); chatHistory.push({ role: 'assistant', content: outT }); }
+      if (msg?.serverContent?.turnComplete) {
+        setTimeout(() => { if (voiceState === 'speaking') setVoiceUI('listening'); }, 200);
+      }
+    } catch(e) {}
   }
+
+  async function startMic() {
+    try {
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate: 16000, channelCount: 1 } });
+      const source = audioCtx.createMediaStreamSource(micStream);
+      micProcessor = audioCtx.createScriptProcessor(4096, 1, 1);
+      micProcessor.onaudioprocess = (e) => {
+        if (ws?.readyState === WebSocket.OPEN) {
+          const pcm = downsampleToPcm16(e.inputBuffer.getChannelData(0), audioCtx.sampleRate);
+          ws.send(JSON.stringify({ realtimeInput: { mediaChunks: [{ mimeType: 'audio/pcm;rate=16000', data: bytesToBase64(pcm) }] } }));
+        }
+      };
+      source.connect(micProcessor);
+      micProcessor.connect(audioCtx.destination);
+    } catch(e) {
+      addMessage('Microphone access denied. Please allow mic permission.', 'bot');
+      cleanupVoice(); setVoiceUI('idle');
+    }
+  }
+
+  function cleanupVoice() {
+    stopPlayback();
+    if (micProcessor) { micProcessor.disconnect(); micProcessor = null; }
+    if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+    if (ws) { try { ws.close(); } catch(e){} ws = null; }
+    if (audioCtx) { try { audioCtx.close(); } catch(e){} audioCtx = null; }
+  }
+
+  function handleMic() {
+    if (voiceState === 'idle' && !ws) connectGeminiLive();
+    else if (voiceState === 'speaking') { stopPlayback(); setVoiceUI('listening'); }
+    else if (ws) { cleanupVoice(); setVoiceUI('idle'); }
+  }
+
+  function stopAudio() { cleanupVoice(); setVoiceUI('idle'); }
 
   // === CHAT (text) ===
   function renderMarkdown(text) {
