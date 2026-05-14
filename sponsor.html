@@ -1094,8 +1094,10 @@
         <button class="pp-lang-pill" onclick="setLang('bn')" id="langBn">বাংলা</button>
         <button class="pp-lang-pill" onclick="setLang('hi')" id="langHi">हिन्दी</button>
       </div>
-      <button class="pp-voice-action idle" id="voiceAction" onclick="handleMic()">🎙️</button>
-      <div class="pp-voice-label idle-label" id="voiceLabel">Tap to speak</div>
+      <button class="pp-voice-action idle" id="voiceAction"
+        onmousedown="handleMicDown()" onmouseup="handleMicUp()" onmouseleave="handleMicUp()"
+        ontouchstart="handleMicDown(); event.preventDefault();" ontouchend="handleMicUp(); event.preventDefault();">🎙️</button>
+      <div class="pp-voice-label idle-label" id="voiceLabel">Hold to talk</div>
     </div>
   </div>
 
@@ -1184,11 +1186,11 @@
 
     if (state === 'idle') {
       voiceAction.innerHTML = '🎙️';
-      voiceLabel.textContent = 'Tap to start voice';
+      voiceLabel.textContent = liveReady ? 'Hold to talk' : 'Tap to connect';
       voiceLabel.className = 'pp-voice-label idle-label';
     } else if (state === 'listening') {
-      voiceAction.innerHTML = '⏹';
-      voiceLabel.textContent = 'Listening... just speak naturally';
+      voiceAction.innerHTML = '🔴';
+      voiceLabel.textContent = 'Listening... release to send';
       voiceLabel.className = 'pp-voice-label recording-label';
     } else if (state === 'thinking') {
       voiceAction.innerHTML = '<img src="brand/priya.jpg" alt="Priya">';
@@ -1196,145 +1198,166 @@
       voiceLabel.className = 'pp-voice-label thinking-label';
     } else if (state === 'speaking') {
       voiceAction.innerHTML = '<img src="brand/priya.jpg" alt="Priya">';
-      voiceLabel.textContent = 'Priya is speaking... tap to interrupt';
+      voiceLabel.textContent = 'Priya is speaking...';
       voiceLabel.className = 'pp-voice-label speaking-label';
     }
   }
 
-  // === GEMINI LIVE VOICE (real-time bidirectional) ===
+  // === GEMINI LIVE VOICE (hold-to-talk, bidirectional streaming) ===
   let ws = null;
   let audioCtx = null;
   let micStream = null;
   let micProcessor = null;
+  let micSource = null;
   let audioQueue = [];
   let isPlayingAudio = false;
   let currentSource = null;
+  let isRecording = false;
+  let liveReady = false;
 
-  function base64ToBytes(b64) {
-    const bin = atob(b64);
-    const bytes = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-    return bytes;
+  function b64ToBytes(b64) {
+    const bin = atob(b64); const a = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return a;
   }
-  function bytesToBase64(bytes) {
-    let bin = '';
-    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  function bytesToB64(bytes) {
+    let bin = ''; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
     return btoa(bin);
   }
-  function downsampleToPcm16(input, inputRate) {
-    const ratio = inputRate / 16000;
-    const length = Math.floor(input.length / ratio);
-    const out = new Int16Array(length);
-    for (let i = 0; i < length; i++) {
-      const s = Math.max(-1, Math.min(1, input[Math.floor(i * ratio)] || 0));
-      out[i] = s < 0 ? s * 0x8000 : s * 0x7fff;
-    }
+  function downsample16(input, inRate) {
+    const r = inRate / 16000, len = Math.floor(input.length / r), out = new Int16Array(len);
+    for (let i = 0; i < len; i++) { const s = Math.max(-1, Math.min(1, input[Math.floor(i * r)] || 0)); out[i] = s < 0 ? s * 0x8000 : s * 0x7fff; }
     return new Uint8Array(out.buffer);
   }
-  function pcm24kToBuffer(ctx, b64) {
-    const bytes = base64ToBytes(b64);
-    const pcm = new Int16Array(bytes.buffer, bytes.byteOffset, Math.floor(bytes.byteLength / 2));
-    const buf = ctx.createBuffer(1, pcm.length, 24000);
-    const ch = buf.getChannelData(0);
-    for (let i = 0; i < pcm.length; i++) ch[i] = pcm[i] / 0x8000;
-    return buf;
+  function pcm24kBuf(ctx, b64) {
+    const bytes = b64ToBytes(b64), pcm = new Int16Array(bytes.buffer, bytes.byteOffset, Math.floor(bytes.byteLength / 2));
+    const buf = ctx.createBuffer(1, pcm.length, 24000), ch = buf.getChannelData(0);
+    for (let i = 0; i < pcm.length; i++) ch[i] = pcm[i] / 0x8000; return buf;
   }
-  function playNextChunk() {
-    if (audioQueue.length === 0) { isPlayingAudio = false; return; }
+  function playNext() {
+    if (!audioQueue.length) { isPlayingAudio = false; if (!isRecording) setVoiceUI('idle'); return; }
     isPlayingAudio = true;
     const buf = audioQueue.shift();
     currentSource = audioCtx.createBufferSource();
     currentSource.buffer = buf;
     currentSource.connect(audioCtx.destination);
-    currentSource.onended = playNextChunk;
+    currentSource.onended = playNext;
     currentSource.start();
   }
-  function stopPlayback() {
-    audioQueue = [];
-    isPlayingAudio = false;
+  function stopPlay() {
+    audioQueue = []; isPlayingAudio = false;
     if (currentSource) { try { currentSource.stop(); } catch(e){} currentSource = null; }
   }
 
   async function connectGeminiLive() {
+    if (ws) return;
     setVoiceUI('thinking');
     try {
       const res = await fetch('/api/gemini-live-token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lang: voiceLang }),
       });
-      if (!res.ok) throw new Error('Token error');
+      if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.detail || 'Token error'); }
       const data = await res.json();
 
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      console.log('[Priya] AudioContext sampleRate:', audioCtx.sampleRate);
-      console.log('[Priya] Connecting WebSocket...');
       ws = new WebSocket(data.websocketUrl);
-      ws.onopen = () => { console.log('[Priya] WebSocket open'); startMic(); setVoiceUI('listening'); };
-      ws.onmessage = handleWsMessage;
-      ws.onclose = (e) => { console.log('[Priya] WebSocket closed:', e.code, e.reason, e.wasClean); cleanupVoice(); setVoiceUI('idle'); };
-      ws.onerror = (e) => { console.error('[Priya] WebSocket error:', e); cleanupVoice(); setVoiceUI('idle'); addMessage('Voice connection failed. Try again.', 'bot'); };
+      liveReady = false;
+
+      ws.onopen = () => {
+        console.log('[Priya] WS open, sending setup');
+        ws.send(JSON.stringify({ setup: {} }));
+      };
+      ws.onmessage = handleWsMsg;
+      ws.onclose = (e) => { console.log('[Priya] WS closed:', e.code, e.reason); cleanupVoice(); setVoiceUI('idle'); };
+      ws.onerror = () => { cleanupVoice(); setVoiceUI('idle'); addMessage('Voice connection failed.', 'bot'); };
     } catch(e) {
+      console.error('[Priya] connect error:', e);
       setVoiceUI('idle');
-      addMessage('Could not start voice. Please use text chat.', 'bot');
+      addMessage('Could not start voice: ' + e.message, 'bot');
     }
   }
 
-  function handleWsMessage(event) {
+  function handleWsMsg(event) {
     try {
-      const msg = JSON.parse(event.data);
-      console.log('[Priya] WS msg keys:', Object.keys(msg?.serverContent || msg).join(','));
-      const parts = msg?.serverContent?.modelTurn?.parts;
-      if (parts) {
-        for (const part of parts) {
-          if (part.inlineData?.data) {
-            setVoiceUI('speaking');
-            audioQueue.push(pcm24kToBuffer(audioCtx, part.inlineData.data));
-            if (!isPlayingAudio) playNextChunk();
-          }
+      const raw = typeof event.data === 'string' ? event.data : '';
+      if (!raw) return;
+      const msg = JSON.parse(raw);
+
+      if ('setupComplete' in msg) {
+        console.log('[Priya] Setup complete — ready');
+        liveReady = true;
+        initMic();
+        setVoiceUI('idle');
+        return;
+      }
+
+      const sc = msg.serverContent;
+      if (!sc) return;
+
+      if (sc.interrupted) { stopPlay(); setVoiceUI(isRecording ? 'listening' : 'idle'); }
+
+      const parts = sc.modelTurn?.parts || [];
+      for (const p of parts) {
+        if (p.inlineData?.data) {
+          setVoiceUI('speaking');
+          audioQueue.push(pcm24kBuf(audioCtx, p.inlineData.data));
+          if (!isPlayingAudio) playNext();
         }
       }
-      const inT = msg?.serverContent?.inputTranscription?.text;
-      const outT = msg?.serverContent?.outputTranscription?.text;
-      if (inT) { addMessage(inT, 'user'); chatHistory.push({ role: 'user', content: inT }); }
-      if (outT) { addMessage(outT, 'bot'); chatHistory.push({ role: 'assistant', content: outT }); }
-      if (msg?.serverContent?.turnComplete) {
-        setTimeout(() => { if (voiceState === 'speaking') setVoiceUI('listening'); }, 200);
-      }
-    } catch(e) {}
+
+      if (sc.inputTranscription?.text) { addMessage(sc.inputTranscription.text, 'user'); chatHistory.push({ role: 'user', content: sc.inputTranscription.text }); }
+      if (sc.outputTranscription?.text) { addMessage(sc.outputTranscription.text, 'bot'); chatHistory.push({ role: 'assistant', content: sc.outputTranscription.text }); }
+      if (sc.turnComplete) { setTimeout(() => { if (voiceState === 'speaking' && !isRecording) setVoiceUI('idle'); }, 200); }
+    } catch(e) { console.warn('[Priya] msg parse error:', e); }
   }
 
-  async function startMic() {
+  async function initMic() {
     try {
-      micStream = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate: 16000, channelCount: 1 } });
-      const source = audioCtx.createMediaStreamSource(micStream);
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
+      micSource = audioCtx.createMediaStreamSource(micStream);
       micProcessor = audioCtx.createScriptProcessor(4096, 1, 1);
       micProcessor.onaudioprocess = (e) => {
-        if (ws?.readyState === WebSocket.OPEN) {
-          const pcm = downsampleToPcm16(e.inputBuffer.getChannelData(0), audioCtx.sampleRate);
-          ws.send(JSON.stringify({ realtimeInput: { mediaChunks: [{ mimeType: 'audio/pcm;rate=16000', data: bytesToBase64(pcm) }] } }));
-        }
+        if (!isRecording || !ws || ws.readyState !== WebSocket.OPEN) return;
+        const pcm = downsample16(e.inputBuffer.getChannelData(0), audioCtx.sampleRate);
+        ws.send(JSON.stringify({ realtimeInput: { mediaChunks: [{ mimeType: 'audio/pcm;rate=16000', data: bytesToB64(pcm) }] } }));
       };
-      source.connect(micProcessor);
+      micSource.connect(micProcessor);
       micProcessor.connect(audioCtx.destination);
     } catch(e) {
-      addMessage('Microphone access denied. Please allow mic permission.', 'bot');
+      addMessage('Mic access denied. Please allow microphone.', 'bot');
       cleanupVoice(); setVoiceUI('idle');
     }
   }
 
+  function startRecording() {
+    if (!liveReady) return;
+    isRecording = true;
+    stopPlay();
+    setVoiceUI('listening');
+  }
+
+  function stopRecording() {
+    isRecording = false;
+    if (voiceState === 'listening') setVoiceUI(isPlayingAudio ? 'speaking' : 'idle');
+  }
+
   function cleanupVoice() {
-    stopPlayback();
+    isRecording = false; liveReady = false;
+    stopPlay();
     if (micProcessor) { micProcessor.disconnect(); micProcessor = null; }
+    if (micSource) { micSource.disconnect(); micSource = null; }
     if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
     if (ws) { try { ws.close(); } catch(e){} ws = null; }
     if (audioCtx) { try { audioCtx.close(); } catch(e){} audioCtx = null; }
   }
 
-  function handleMic() {
-    if (voiceState === 'idle' && !ws) connectGeminiLive();
-    else if (voiceState === 'speaking') { stopPlayback(); setVoiceUI('listening'); }
-    else if (ws) { cleanupVoice(); setVoiceUI('idle'); }
+  // Hold-to-talk: mousedown/touchstart = start, mouseup/touchend = stop
+  function handleMicDown() {
+    if (!ws || !liveReady) { connectGeminiLive(); return; }
+    startRecording();
+  }
+  function handleMicUp() {
+    if (isRecording) stopRecording();
   }
 
   function stopAudio() { cleanupVoice(); setVoiceUI('idle'); }
