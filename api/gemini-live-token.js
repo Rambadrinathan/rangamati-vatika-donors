@@ -78,8 +78,8 @@ If unsure about something, say "Let me connect you with Ram ji for accurate deta
     try { token = JSON.parse(rawBody); } catch { token = {}; }
 
     if (!tokenRes.ok || !token.name) {
-      console.error('Gemini Live token error:', { status: tokenRes.status, body: rawBody });
-      return res.status(502).json({ error: 'Could not create voice session' });
+      console.error('Gemini Live token error:', { status: tokenRes.status, body: rawBody, model: LIVE_MODEL, keyPrefix: apiKey.substring(0, 8) });
+      return res.status(502).json({ error: 'Could not create voice session', detail: rawBody, model: LIVE_MODEL });
     }
 
     return res.status(200).json({
