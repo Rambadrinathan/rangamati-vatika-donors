@@ -1264,8 +1264,10 @@
       liveReady = false;
 
       ws.onopen = () => {
-        console.log('[Priya] WS open, sending setup');
-        ws.send(JSON.stringify({ setup: {} }));
+        console.log('[Priya] WS open — token carries setup, skipping setup message');
+        liveReady = true;
+        initMic();
+        setVoiceUI('idle');
       };
       ws.onmessage = handleWsMsg;
       ws.onclose = (e) => { console.log('[Priya] WS closed:', e.code, e.reason); cleanupVoice(); setVoiceUI('idle'); };
