@@ -1264,10 +1264,9 @@
       liveReady = false;
 
       ws.onopen = () => {
-        console.log('[Priya] WS open — token carries setup, skipping setup message');
-        liveReady = true;
-        initMic();
-        setVoiceUI('idle');
+        console.log('[Priya] WS open, sending setup...');
+        ws.send(JSON.stringify({ setup: {} }));
+        // Don't init mic yet — wait for setupComplete in handleWsMsg
       };
       ws.onmessage = handleWsMsg;
       ws.onclose = (e) => { console.log('[Priya] WS closed:', e.code, e.reason); cleanupVoice(); setVoiceUI('idle'); };
