@@ -1360,7 +1360,7 @@
 
   async function initMic() {
     try {
-      micStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1 } });
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
       micSource = audioCtx.createMediaStreamSource(micStream);
       micProcessor = audioCtx.createScriptProcessor(4096, 1, 1);
       micProcessor.onaudioprocess = (e) => {
@@ -1369,7 +1369,11 @@
         ws.send(JSON.stringify({ realtimeInput: { audio: { mimeType: 'audio/pcm;rate=16000', data: bytesToB64(pcm) } } }));
       };
       micSource.connect(micProcessor);
-      micProcessor.connect(audioCtx.destination);
+      // Connect to a silent destination so onaudioprocess fires, but don't play mic back through speakers
+      const silentGain = audioCtx.createGain();
+      silentGain.gain.value = 0;
+      micProcessor.connect(silentGain);
+      silentGain.connect(audioCtx.destination);
     } catch(e) {
       addMessage('Mic access denied. Please allow microphone.', 'bot');
       cleanupVoice(); setVoiceUI('idle');
@@ -1378,10 +1382,14 @@
 
   function startRecording() {
     if (!liveReady) return;
-    isRecording = true;
+    // Stop any currently playing Priya audio immediately
     stopPlay();
+    // Finalize any in-progress transcription bubbles from previous turn
+    if (accInputText) chatHistory.push({ role: 'user', content: accInputText });
+    if (accOutputText) chatHistory.push({ role: 'assistant', content: accOutputText });
     accInputText = ''; accOutputText = '';
     currentInputBubble = null; currentOutputBubble = null;
+    isRecording = true;
     setVoiceUI('listening');
   }
 
