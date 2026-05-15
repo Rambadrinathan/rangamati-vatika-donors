@@ -383,17 +383,6 @@
   .pp-voice-label.thinking-label { color: var(--terracotta); }
   .pp-voice-label.speaking-label { color: #4CAF50; }
 
-  /* Language pills */
-  .pp-lang-pills {
-    display: flex; gap: 6px; margin-bottom: 12px;
-  }
-  .pp-lang-pill {
-    padding: 5px 14px; border-radius: 14px; border: 1.5px solid rgba(46,83,57,0.2);
-    background: white; color: var(--muted); font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: all 0.15s;
-  }
-  .pp-lang-pill:hover { border-color: var(--green-dark); color: var(--green-dark); }
-  .pp-lang-pill.active { background: var(--green-dark); color: white; border-color: var(--green-dark); }
 
   /* DETAIL CARDS */
   .detail-card {
@@ -1089,11 +1078,6 @@
 
     <!-- VOICE ACTION BAR (replaces input bar when voice active) -->
     <div class="pp-voice-bar" id="voiceBar">
-      <div class="pp-lang-pills">
-        <button class="pp-lang-pill active" onclick="setLang('en')" id="langEn">English</button>
-        <button class="pp-lang-pill" onclick="setLang('bn')" id="langBn">বাংলা</button>
-        <button class="pp-lang-pill" onclick="setLang('hi')" id="langHi">हिन्दी</button>
-      </div>
       <button class="pp-voice-action idle" id="voiceAction"
         onmousedown="handleMicDown()" onmouseup="handleMicUp()" onmouseleave="handleMicUp()"
         ontouchstart="handleMicDown(); event.preventDefault();" ontouchend="handleMicUp(); event.preventDefault();">🎙️</button>
@@ -1113,24 +1097,7 @@
   const chatHistory = [];
   let voiceActive = false;
   let voiceState = 'idle';
-  let recognition = null;
-  let currentAudio = null;
-  let voiceLang = 'en'; // en, bn, hi
 
-  const langMap = {
-    en: { recognition: 'en-IN', tts: 'en', suffix: 'Respond in English with occasional Hindi/Bengali terms for warmth. Keep it concise and conversational. Maximum 3-4 sentences.' },
-    bn: { recognition: 'bn-IN', tts: 'bn', suffix: 'IMPORTANT: Respond in Bengali (বাংলা). Use Bengali script. Keep it warm, concise, conversational. Maximum 3 sentences.' },
-    hi: { recognition: 'hi-IN', tts: 'hi', suffix: 'IMPORTANT: Respond in Hindi (हिन्दी). Use Devanagari script. Keep it warm, concise, conversational. Maximum 3 sentences.' },
-  };
-
-  function setLang(lang) {
-    voiceLang = lang;
-    document.getElementById('langEn').classList.toggle('active', lang === 'en');
-    document.getElementById('langBn').classList.toggle('active', lang === 'bn');
-    document.getElementById('langHi').classList.toggle('active', lang === 'hi');
-  }
-
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const voiceToggle = document.getElementById('btnVoice');
   const voiceAction = document.getElementById('voiceAction');
   const voiceLabel = document.getElementById('voiceLabel');
@@ -1148,7 +1115,6 @@
     document.getElementById('priyaPanel').classList.remove('open');
     document.getElementById('priyaTrigger').style.display = 'flex';
     stopAudio();
-    if (recognition) { try { recognition.abort(); } catch(e){} }
     voiceActive = false;
     voiceToggle.classList.remove('active');
     voiceBar.classList.remove('active');
@@ -1157,24 +1123,17 @@
 
   // === VOICE TOGGLE ===
   function toggleVoice() {
-    if (!SpeechRecognition) {
-      addMessage('Voice is not supported in this browser. Please use Chrome or Edge.', 'bot');
-      return;
-    }
     voiceActive = !voiceActive;
     voiceToggle.classList.toggle('active', voiceActive);
 
     if (voiceActive) {
-      // Show voice bar, hide text input
       voiceBar.classList.add('active');
       inputBar.style.display = 'none';
       setVoiceUI('idle');
     } else {
-      // Show text input, hide voice bar
       voiceBar.classList.remove('active');
       inputBar.style.display = 'flex';
       stopAudio();
-      if (recognition) { try { recognition.abort(); } catch(e){} }
       document.getElementById('ppInput').focus();
     }
   }
@@ -1209,15 +1168,16 @@
   let micStream = null;
   let micProcessor = null;
   let micSource = null;
-  let audioQueue = [];
   let isPlayingAudio = false;
-  let currentSource = null;
   let isRecording = false;
   let liveReady = false;
   let currentInputBubble = null;
   let currentOutputBubble = null;
   let accInputText = '';
   let accOutputText = '';
+  // Generation counter: incremented on every interrupt/new-recording.
+  // Audio chunks from a stale generation are silently dropped.
+  let turnGen = 0;
 
   function b64ToBytes(b64) {
     const bin = atob(b64); const a = new Uint8Array(bin.length);
@@ -1237,16 +1197,18 @@
     const buf = ctx.createBuffer(1, pcm.length, 24000), ch = buf.getChannelData(0);
     for (let i = 0; i < pcm.length; i++) ch[i] = pcm[i] / 0x8000; return buf;
   }
+
   let playChain = Promise.resolve();
   let activeSources = new Set();
   let audioQueueLen = 0;
 
-  function enqueueAudio(b64) {
-    if (!audioCtx) return;
+  function enqueueAudio(b64, gen) {
+    if (!audioCtx || gen !== turnGen) return; // stale generation — drop
     audioQueueLen++;
     isPlayingAudio = true;
     setVoiceUI('speaking');
     playChain = playChain.then(() => new Promise(resolve => {
+      if (gen !== turnGen) { audioQueueLen--; resolve(); return; } // check again before playing
       const source = audioCtx.createBufferSource();
       activeSources.add(source);
       source.buffer = pcm24kBuf(audioCtx, b64);
@@ -1260,12 +1222,20 @@
       source.start();
     })).catch(() => {});
   }
-  function playNext() {} // kept for compat
+
   function stopPlay() {
+    turnGen++; // invalidate all queued/in-flight audio
     audioQueueLen = 0; isPlayingAudio = false;
     playChain = Promise.resolve();
     for (const s of activeSources) { try { s.stop(); } catch(e){} }
     activeSources.clear();
+  }
+
+  function finalizeTurn() {
+    if (accInputText) chatHistory.push({ role: 'user', content: accInputText });
+    if (accOutputText) chatHistory.push({ role: 'assistant', content: accOutputText });
+    accInputText = ''; accOutputText = '';
+    currentInputBubble = null; currentOutputBubble = null;
   }
 
   async function connectGeminiLive() {
@@ -1274,7 +1244,7 @@
     try {
       const res = await fetch('/api/gemini-live-token', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lang: voiceLang }),
+        body: JSON.stringify({}),
       });
       if (!res.ok) { const d = await res.json().catch(() => ({})); throw new Error(d.detail || 'Token error'); }
       const data = await res.json();
@@ -1286,7 +1256,6 @@
       ws.onopen = () => {
         console.log('[Priya] WS open, sending setup...');
         ws.send(JSON.stringify({ setup: {} }));
-        // Timeout: if setupComplete doesn't arrive in 8s, force ready
         setTimeout(() => {
           if (ws && ws.readyState === WebSocket.OPEN && !liveReady) {
             console.warn('[Priya] setupComplete timeout — forcing ready');
@@ -1296,10 +1265,7 @@
           }
         }, 8000);
       };
-      ws.onmessage = (event) => {
-        console.log('[Priya] RAW WS msg:', typeof event.data === 'string' ? event.data.substring(0, 200) : 'blob');
-        handleWsMsg(event);
-      };
+      ws.onmessage = (event) => handleWsMsg(event);
       ws.onclose = (e) => { console.log('[Priya] WS closed:', e.code, e.reason); cleanupVoice(); setVoiceUI('idle'); };
       ws.onerror = () => { cleanupVoice(); setVoiceUI('idle'); addMessage('Voice connection failed.', 'bot'); };
     } catch(e) {
@@ -1319,7 +1285,6 @@
       const msg = JSON.parse(raw);
 
       if ('setupComplete' in msg) {
-        console.log('[Priya] Setup complete — ready');
         liveReady = true;
         initMic();
         setVoiceUI('idle');
@@ -1331,17 +1296,20 @@
 
       if (sc.interrupted) { stopPlay(); setVoiceUI(isRecording ? 'listening' : 'idle'); }
 
+      // Capture the generation at message arrival
+      const gen = turnGen;
+
       const parts = sc.modelTurn?.parts || [];
       for (const p of parts) {
-        if (p.inlineData?.data) enqueueAudio(p.inlineData.data);
+        if (p.inlineData?.data) enqueueAudio(p.inlineData.data, gen);
       }
 
-      if (sc.inputTranscription?.text) {
+      if (sc.inputTranscription?.text && gen === turnGen) {
         accInputText = (accInputText + ' ' + sc.inputTranscription.text).trim();
         if (!currentInputBubble) { currentInputBubble = addMessage(accInputText, 'user'); }
         else { currentInputBubble.textContent = accInputText; }
       }
-      if (sc.outputTranscription?.text) {
+      if (sc.outputTranscription?.text && gen === turnGen) {
         accOutputText = (accOutputText + ' ' + sc.outputTranscription.text).trim();
         if (!currentOutputBubble) { currentOutputBubble = addMessage(accOutputText, 'bot'); }
         else { currentOutputBubble.innerHTML = renderMarkdown(accOutputText); }
@@ -1349,18 +1317,15 @@
         if (msgs) msgs.scrollTop = msgs.scrollHeight;
       }
       if (sc.turnComplete) {
-        if (accInputText) chatHistory.push({ role: 'user', content: accInputText });
-        if (accOutputText) chatHistory.push({ role: 'assistant', content: accOutputText });
-        accInputText = ''; accOutputText = '';
-        currentInputBubble = null; currentOutputBubble = null;
-        setTimeout(() => { if (voiceState === 'speaking' && !isRecording) setVoiceUI('idle'); }, 200);
+        if (gen === turnGen) finalizeTurn();
+        if (!isRecording && !isPlayingAudio) setVoiceUI('idle');
       }
     } catch(e) { console.warn('[Priya] msg parse error:', e); }
   }
 
   async function initMic() {
     try {
-      micStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
       micSource = audioCtx.createMediaStreamSource(micStream);
       micProcessor = audioCtx.createScriptProcessor(4096, 1, 1);
       micProcessor.onaudioprocess = (e) => {
@@ -1369,7 +1334,6 @@
         ws.send(JSON.stringify({ realtimeInput: { audio: { mimeType: 'audio/pcm;rate=16000', data: bytesToB64(pcm) } } }));
       };
       micSource.connect(micProcessor);
-      // Connect to a silent destination so onaudioprocess fires, but don't play mic back through speakers
       const silentGain = audioCtx.createGain();
       silentGain.gain.value = 0;
       micProcessor.connect(silentGain);
@@ -1382,13 +1346,8 @@
 
   function startRecording() {
     if (!liveReady) return;
-    // Stop any currently playing Priya audio immediately
-    stopPlay();
-    // Finalize any in-progress transcription bubbles from previous turn
-    if (accInputText) chatHistory.push({ role: 'user', content: accInputText });
-    if (accOutputText) chatHistory.push({ role: 'assistant', content: accOutputText });
-    accInputText = ''; accOutputText = '';
-    currentInputBubble = null; currentOutputBubble = null;
+    stopPlay(); // kills audio + bumps turnGen
+    finalizeTurn();
     isRecording = true;
     setVoiceUI('listening');
   }
@@ -1401,7 +1360,7 @@
         ws.send(JSON.stringify({ realtimeInput: { audioStreamEnd: true } }));
       }
     } catch(e) { /* ignore */ }
-    if (voiceState === 'listening') setVoiceUI(isPlayingAudio ? 'speaking' : 'idle');
+    setVoiceUI('idle');
   }
 
   function cleanupVoice() {
@@ -1414,29 +1373,13 @@
     if (audioCtx) { try { audioCtx.close(); } catch(e){} audioCtx = null; }
   }
 
-  // Hold-to-talk with interrupt: if Priya is speaking, first tap just stops her.
-  let micDownTime = 0;
+  // Hold-to-talk: press = interrupt (if speaking) + start recording, release = stop recording
   function handleMicDown() {
     if (!ws || !liveReady) { connectGeminiLive(); return; }
-    // If Priya is currently speaking, interrupt her first — don't start recording yet
-    if (isPlayingAudio || voiceState === 'speaking') {
-      stopPlay();
-      // Finalize any pending transcription
-      if (accInputText) chatHistory.push({ role: 'user', content: accInputText });
-      if (accOutputText) chatHistory.push({ role: 'assistant', content: accOutputText });
-      accInputText = ''; accOutputText = '';
-      currentInputBubble = null; currentOutputBubble = null;
-      setVoiceUI('idle');
-      return;
-    }
-    micDownTime = Date.now();
-    startRecording();
+    startRecording(); // stopPlay() inside handles interrupt
   }
   function handleMicUp() {
-    if (!isRecording) return;
-    // Ignore very short taps (< 150ms) to prevent accidental stop on touch
-    if (Date.now() - micDownTime < 150) return;
-    stopRecording();
+    if (isRecording) stopRecording();
   }
 
   function stopAudio() { cleanupVoice(); setVoiceUI('idle'); }
