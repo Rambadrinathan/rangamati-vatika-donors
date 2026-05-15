@@ -1414,13 +1414,29 @@
     if (audioCtx) { try { audioCtx.close(); } catch(e){} audioCtx = null; }
   }
 
-  // Hold-to-talk: mousedown/touchstart = start, mouseup/touchend = stop
+  // Hold-to-talk with interrupt: if Priya is speaking, first tap just stops her.
+  let micDownTime = 0;
   function handleMicDown() {
     if (!ws || !liveReady) { connectGeminiLive(); return; }
+    // If Priya is currently speaking, interrupt her first — don't start recording yet
+    if (isPlayingAudio || voiceState === 'speaking') {
+      stopPlay();
+      // Finalize any pending transcription
+      if (accInputText) chatHistory.push({ role: 'user', content: accInputText });
+      if (accOutputText) chatHistory.push({ role: 'assistant', content: accOutputText });
+      accInputText = ''; accOutputText = '';
+      currentInputBubble = null; currentOutputBubble = null;
+      setVoiceUI('idle');
+      return;
+    }
+    micDownTime = Date.now();
     startRecording();
   }
   function handleMicUp() {
-    if (isRecording) stopRecording();
+    if (!isRecording) return;
+    // Ignore very short taps (< 150ms) to prevent accidental stop on touch
+    if (Date.now() - micDownTime < 150) return;
+    stopRecording();
   }
 
   function stopAudio() { cleanupVoice(); setVoiceUI('idle'); }
