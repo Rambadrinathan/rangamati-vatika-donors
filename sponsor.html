@@ -1386,7 +1386,13 @@
   }
 
   function stopRecording() {
+    if (!isRecording) return;
     isRecording = false;
+    try {
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ realtimeInput: { audioStreamEnd: true } }));
+      }
+    } catch(e) { /* ignore */ }
     if (voiceState === 'listening') setVoiceUI(isPlayingAudio ? 'speaking' : 'idle');
   }
 
